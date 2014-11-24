@@ -1,4 +1,4 @@
-var CONST_BUILDING_VERTICES = 8;
+var CONST_BUILDING_VERTICES = 36;
 Building = function(x_t, y_t, z_t, length, width, height) {
     this.x_t = x_t;
     this.y_t = y_t;
@@ -6,7 +6,7 @@ Building = function(x_t, y_t, z_t, length, width, height) {
     this.length = length;
     this.width = width;
     this.height = height;
-    this.vertexBegin = vertices.length();
+    this.vertexBegin = vertices.length;
     this.vertices = [
         vec3(  length,   length, length ), //vertex 0
         vec3(  length,  -length, length ), //vertex 1
@@ -26,5 +26,5 @@ Building = function(x_t, y_t, z_t, length, width, height) {
 
 Building.prototype.render = function(vertices, startIndex) {
     // TODO: render the building by appending it to the buffer
-    //gl.drawArrays( gl.TRIANGLES, startIndex, 36);
+    gl.drawArrays( gl.TRIANGLES, startIndex, 36);
 };

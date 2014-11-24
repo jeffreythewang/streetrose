@@ -1,5 +1,3 @@
-var canvas;
-var gl;
 var length = 0.5;
 var time = 0.0;
 var timer = new Timer();
@@ -7,30 +5,12 @@ var omega = 60;
 
 var time_stopped = false;
 
-var UNIFORM_mvpMatrix;
-var UNIFORM_lightPosition;
-var UNIFORM_shininess;
-var ATTRIBUTE_position;
-var ATTRIBUTE_normal;
-
-var positionBuffer;
-var normalBuffer;
-
 var myTexture1;
 var myTexture2;
 var bgTexture;
 
-var viewMatrix;
-var projectionMatrix;
-var mvpMatrix;
-var rotateTexture;
-
 var shininess = 50;
 var lightPosition = vec3(0.0, 0.0, 0.0);
-
-var eye = vec3(0, 0.2, 1.5);
-var at = vec3(0, 0, 0);
-var up = vec3(0, 1, 0);
 
 var uv1 = [];
 var uv2 = [];
@@ -39,10 +19,6 @@ var uvBackground = [];
 var x_t = 0;
 var y_t = 0;
 var z_t = 0;
-
-// stores objects of all the data
-// object name
-var objectData = []
 
 window.onload = function init()
 {
@@ -64,8 +40,8 @@ window.onload = function init()
         vec3( -length,  -length, -length )  //vertex 7
     ];
 
-    var points = [];
-    var normals = [];
+    points = [];
+    normals = [];
     uv1 = [];
     uv2 = [];
     Cube(vertices, points, normals, uv1, false);
@@ -274,7 +250,7 @@ function degreesToRadians(degrees) {
     return degrees * Math.PI / 180;
 }
 
-//var cool_building = new Building(0, 0, 0, 1.5, 0, 0);
+var cool_building = new Building(0, 0, 0, 1.5, 0, 0);
 
 function render()
 {
@@ -285,8 +261,7 @@ function render()
     drawBackground();
     displayCar();
 
-
-    for (var i = 0; i < objectData; i++) {
+    for (var i = 0; i < objectData.length; i++) {
         //var shapeType = objectData[i][0];
         var vertexBegin = objectData[i][0];
         var numVertices = objectData[i][1];
