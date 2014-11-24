@@ -40,6 +40,10 @@ var x_t = 0;
 var y_t = 0;
 var z_t = 0;
 
+// stores objects of all the data
+// object name
+var objectData = []
+
 window.onload = function init()
 {
     canvas = document.getElementById( "gl-canvas" );
@@ -65,7 +69,7 @@ window.onload = function init()
     uv1 = [];
     uv2 = [];
     Cube(vertices, points, normals, uv1, false);
-    Cube(vertices, points, normals, uv2, true);
+    //Cube(vertices, points, normals, uv2, true);
 
     myTexture1 = gl.createTexture();
     myTexture1.image = new Image();
@@ -270,6 +274,8 @@ function degreesToRadians(degrees) {
     return degrees * Math.PI / 180;
 }
 
+//var cool_building = new Building(0, 0, 0, 1.5, 0, 0);
+
 function render()
 {
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -278,6 +284,14 @@ function render()
 
     drawBackground();
     displayCar();
+
+
+    for (var i = 0; i < objectData; i++) {
+        //var shapeType = objectData[i][0];
+        var vertexBegin = objectData[i][0];
+        var numVertices = objectData[i][1];
+        gl.drawArrays( gl.TRIANGLES, vertexBegin, numVertices);
+    }
 
     window.requestAnimFrame( render );
 }
