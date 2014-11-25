@@ -24,7 +24,9 @@ var at = vec3(0, 0, 0);
 var up = vec3(0, 1, 0);
 
 // stores objects of all the data
-// object name
+// [ [objectA vertexBegin, objectA numVertices],
+//   [objectB vertexBegin, objectB numVertices],
+//   [objectC vertexBegin, objectC numVertices] ];
 var objectData = []
 
 function Cube(vertices, points, normals, uv, scale){
