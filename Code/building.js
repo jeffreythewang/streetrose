@@ -12,23 +12,22 @@ var uvBuffer;
 
 var texture;
 
-Building = function(x_t, y_t, z_t, length, width, height) {
+Building = function(x_t, y_t, z_t, length, scale_height) {
     this.x_t = x_t;
     this.y_t = y_t;
     this.z_t = z_t;
     this.length = length;
-    this.width = width;
-    this.height = height;
+    this.height = scale_height;
     this.vertexBegin = points.length;
     this.vertices = [
-        vec3(  length,   length, length ), //vertex 0
-        vec3(  length,  -length, length ), //vertex 1
-        vec3( -length,   length, length ), //vertex 2
-        vec3( -length,  -length, length ),  //vertex 3
-        vec3(  length,   length, -length ), //vertex 4
-        vec3(  length,  -length, -length ), //vertex 5
-        vec3( -length,   length, -length ), //vertex 6
-        vec3( -length,  -length, -length )  //vertex 7
+        vec3(  this.length,   2*this.length, this.length ), //vertex 0
+        vec3(  this.length,  0, this.length ), //vertex 1
+        vec3( -this.length,   2*this.length, this.length ), //vertex 2
+        vec3( -this.length,  0, this.length ),  //vertex 3
+        vec3(  this.length,   2*this.length, -this.length ), //vertex 4
+        vec3(  this.length,  0, -this.length ), //vertex 5
+        vec3( -this.length,  2*this.length, -this.length ), //vertex 6
+        vec3( -this.length,  0, -this.length )  //vertex 7
     ];
 
     Cube(this.vertices, points, normals, uv, false);
@@ -55,6 +54,8 @@ Building.prototype.render = function() {
     // TODO: render the building by appending it to the buffer
 
     var mvMatrix = mult(viewMatrix, translate(vec3(this.x_t, this.y_t, this.z_t)));
+
+    mvMatrix = mult(mvMatrix, scale(vec3(1, this.height, 1)));
 
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, myTexture);

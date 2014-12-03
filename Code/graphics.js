@@ -5,6 +5,7 @@ function render() {
 	
 	skybox.render();
 
+    NSMutableCar.render();
     for (var i = 0; i < buildingActors.length; i++) {
         var currentBuilding = buildingActors[i];
         currentBuilding.render();
