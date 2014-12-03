@@ -27,7 +27,9 @@ var up = vec3(0, 1, 0);
 // [ [objectA vertexBegin, objectA numVertices],
 //   [objectB vertexBegin, objectB numVertices],
 //   [objectC vertexBegin, objectC numVertices] ];
-var objectData = []
+var objectData = [];
+var buildingActors = [];
+var treeActors = [];
 
 function Cube(vertices, points, normals, uv, scale){
     Quad(vertices, points, normals, uv, 0, 1, 2, 3, vec3(0, 0, 1), scale);
@@ -70,4 +72,3 @@ function Quad( vertices, points, normals, uv, v1, v2, v3, v4, normal, scale){
     points.push(vertices[v4]);
     points.push(vertices[v2]);
 }
-
