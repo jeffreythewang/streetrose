@@ -6,7 +6,7 @@ var UNIFORM_shininess;
 var ATTRIBUTE_position;
 var ATTRIBUTE_normal;
 
-var positionBuffer; 
+var positionBuffer;
 var normalBuffer;
 var uvBuffer;
 
@@ -51,7 +51,7 @@ Building = function(x_t, y_t, z_t, length, width, height) {
     gl.bindTexture(gl.TEXTURE_2D, null);
     }
 
-    myTexture.image.src = "./Images/chrome.jpg";
+    myTexture.image.src = "../Images/chrome.jpg";
 
     var program = initShaders( gl, "vertex-shader", "fragment-shader" );
     gl.useProgram( program );
