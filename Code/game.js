@@ -90,11 +90,13 @@ window.onload = function init()
 
     window.addEventListener('keydown', handleKeydown);
 
-    var cool_building = new Building(0.5, 0, 0.2, 0.1, 0, 0);
+   /* var cool_building = new Building(0.5, 0, 0.2, 0.1, 0, 0);
     buildingActors.push(cool_building);
 
     var cool_building2 = new Building(0.8, 0, 0.1, 0.1, 0, 0);
-    buildingActors.push(cool_building2);
+    buildingActors.push(cool_building2);*/
+	
+	skybox = new Skybox();
 
     console.log(points);
     bindBuffers();
