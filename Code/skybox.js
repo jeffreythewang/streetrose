@@ -1,4 +1,4 @@
-var length = 0.5;
+var length = 1.0;
 
 var UNIFORM_mvpMatrix;
 var UNIFORM_lightPosition;
@@ -10,56 +10,56 @@ var positionBuffer;
 var normalBuffer;
 var uvBuffer;
 
-var texture;
+//var texture;
 
 Skybox = function() {
     this.vertexBegin = points.length;
     this.vertices = [
-        vec3(  length,   length, length ), //vertex 0
-        vec3(  length,  -length, length ), //vertex 1
-        vec3( -length,   length, length ), //vertex 2
-        vec3( -length,  -length, length ),  //vertex 3
-        vec3(  length,   length, -length ), //vertex 4
-        vec3(  length,  -length, -length ), //vertex 5
-        vec3( -length,   length, -length ), //vertex 6
-        vec3( -length,  -length, -length )  //vertex 7
+        vec3(  length,   2*length, length ), //vertex 0
+        vec3(  length,  0, length ), //vertex 1
+        vec3( -length,   2*length, length ), //vertex 2
+        vec3( -length,  0, length ),  //vertex 3
+        vec3(  length,   2*length, -length ), //vertex 4
+        vec3(  length,  0, -length ), //vertex 5
+        vec3( -length,   2*length, -length ), //vertex 6
+        vec3( -length,  0, -length )  //vertex 7
     ];
 	
     Cube(this.vertices, points, normals, uv, false);
 
-    myTexture = gl.createTexture();
-    myTexture.image = new Image();
-    myTexture.image.onload = function(){
-    gl.bindTexture(gl.TEXTURE_2D, myTexture);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, myTexture.image);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-    //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-    //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-    gl.generateMipmap(gl.TEXTURE_2D);
-    gl.bindTexture(gl.TEXTURE_2D, null);
+    skyboxTexture = gl.createTexture();
+    skyboxTexture.image = new Image();
+    skyboxTexture.image.onload = function(){
+		gl.bindTexture(gl.TEXTURE_2D, skyboxTexture);
+		gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, skyboxTexture.image);
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+		//gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+		//gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+		gl.generateMipmap(gl.TEXTURE_2D);
+		gl.bindTexture(gl.TEXTURE_2D, null);
     }
 	
-	myTexture.image.src = "../Images/sky.jpg";
+	skyboxTexture.image.src = "../Images/sky.jpg";
 	
-	myTexture1 = gl.createTexture();
-    myTexture1.image = new Image();
-    myTexture1.image.onload = function(){
-    gl.bindTexture(gl.TEXTURE_2D, myTexture1);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, myTexture1.image);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-    //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-    //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-    gl.generateMipmap(gl.TEXTURE_2D);
-    gl.bindTexture(gl.TEXTURE_2D, null);
+	skyboxTexture1 = gl.createTexture();
+    skyboxTexture1.image = new Image();
+    skyboxTexture1.image.onload = function(){
+		gl.bindTexture(gl.TEXTURE_2D, skyboxTexture1);
+		gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, skyboxTexture1.image);
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+		//gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+		//gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+		gl.generateMipmap(gl.TEXTURE_2D);
+		gl.bindTexture(gl.TEXTURE_2D, null);
     }
 	
-	myTexture1.image.src = "../Images/chrome.jpg";
+	skyboxTexture1.image.src = "../Images/chrome.jpg";
 };
 
 function Cube(vertices, points, normals, uv, scale){
@@ -106,7 +106,7 @@ function Quad( vertices, points, normals, uv, v1, v2, v3, v4, normal, scale){
 
 Skybox.prototype.render = function() {
 	var mvMatrix = mult(viewMatrix, translate(vec3(0, 0, 0.0)));
-	mvMatrix = mult(viewMatrix, scale(100, 100, 100));
+	mvMatrix = mult(viewMatrix, scale(500, 100, 100));
 	
     gl.activeTexture(gl.TEXTURE0);
 	
@@ -119,11 +119,11 @@ Skybox.prototype.render = function() {
     gl.uniform1i(UNIFORM_sampler, 0);
 	
 	gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, myTexture);
+    gl.bindTexture(gl.TEXTURE_2D, skyboxTexture);
     gl.drawArrays( gl.TRIANGLES, this.vertexBegin, 30);
 	
 	gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, myTexture1);
+    gl.bindTexture(gl.TEXTURE_2D, skyboxTexture1);
     gl.drawArrays( gl.TRIANGLES, this.vertexBegin + 30, 6);
 };
 

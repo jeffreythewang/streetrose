@@ -19,7 +19,7 @@ var points = [];
 var normals = [];
 var uv = [];
 
-var eye = vec3(0, 0.2, 0.5);
+var eye = vec3(0, 0.2, -5);
 var at = vec3(0, 0, 0);
 var up = vec3(0, 1, 0);
 
