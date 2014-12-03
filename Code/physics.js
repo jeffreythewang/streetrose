@@ -1,23 +1,23 @@
 function moveForward() {
     for (var i = 0; i < buildingActors.length; i++) {
-        var currentBuilding = objectData[i];
+        var currentBuilding = buildingActors[i];
         currentBuilding.forward();
     }
 
     for (var i = 0; i < treeActors.length; i++) {
-        var currentTree = objectData[i];
+        var currentTree = treeActors[i];
         currentTree.forward();
     }
 }
 
 function moveBackward() {
     for (var i = 0; i < buildingActors.length; i++) {
-        var currentBuilding = objectData[i];
+        var currentBuilding = buildingActors[i];
         currentBuilding.backward();
     }
 
     for (var i = 0; i < treeActors.length; i++) {
-        var currentTree = objectData[i];
+        var currentTree = treeActors[i];
         currentTree.backward();
     }
 }
