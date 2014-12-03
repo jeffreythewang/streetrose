@@ -19,7 +19,7 @@ Building = function(x_t, y_t, z_t, length, width, height) {
     this.length = length;
     this.width = width;
     this.height = height;
-    this.vertexBegin = vertices.length;
+    this.vertexBegin = points.length;
     this.vertices = [
         vec3(  length,   length, length ), //vertex 0
         vec3(  length,  -length, length ), //vertex 1
@@ -30,11 +30,8 @@ Building = function(x_t, y_t, z_t, length, width, height) {
         vec3( -length,   length, -length ), //vertex 6
         vec3( -length,  -length, -length )  //vertex 7
     ];
-    this.uv = [];
-    this.points = [];
-    this.normals = [];
 
-    Cube(this.vertices, this.points, this.normals, this.uv, false);
+    Cube(this.vertices, points, normals, uv, false);
 
     myTexture = gl.createTexture();
     myTexture.image = new Image();
@@ -52,53 +49,13 @@ Building = function(x_t, y_t, z_t, length, width, height) {
     }
 
     myTexture.image.src = "../Images/chrome.jpg";
-
-    var program = initShaders( gl, "vertex-shader", "fragment-shader" );
-    gl.useProgram( program );
-
-    positionBuffer = gl.createBuffer();
-    gl.bindBuffer( gl.ARRAY_BUFFER, positionBuffer );
-    gl.bufferData( gl.ARRAY_BUFFER, flatten(this.points), gl.STATIC_DRAW );
-
-    normalBuffer = gl.createBuffer();
-    gl.bindBuffer( gl.ARRAY_BUFFER, normalBuffer );
-    gl.bufferData( gl.ARRAY_BUFFER, flatten(this.normals), gl.STATIC_DRAW );
-
-    uvBuffer = gl.createBuffer();
-    gl.bindBuffer( gl.ARRAY_BUFFER, uvBuffer );
-    gl.bufferData( gl.ARRAY_BUFFER, flatten(this.uv), gl.STATIC_DRAW );
-
-    ATTRIBUTE_position = gl.getAttribLocation( program, "vPosition" );
-    gl.enableVertexAttribArray( ATTRIBUTE_position );
-
-    ATTRIBUTE_normal = gl.getAttribLocation( program, "vNormal" );
-    gl.enableVertexAttribArray( ATTRIBUTE_normal );
-
-    ATTRIBUTE_uv = gl.getAttribLocation( program, "vUV" );
-    gl.enableVertexAttribArray( ATTRIBUTE_uv);
-
-    gl.bindBuffer( gl.ARRAY_BUFFER, positionBuffer );
-    gl.vertexAttribPointer( ATTRIBUTE_position, 3, gl.FLOAT, false, 0, 0 );
-
-    gl.bindBuffer( gl.ARRAY_BUFFER, normalBuffer );
-    gl.vertexAttribPointer( ATTRIBUTE_normal, 3, gl.FLOAT, false, 0, 0 );
-
-    gl.bindBuffer( gl.ARRAY_BUFFER, uvBuffer );
-    gl.vertexAttribPointer( ATTRIBUTE_uv, 2, gl.FLOAT, false, 0, 0 );
-
-
-    UNIFORM_mvMatrix = gl.getUniformLocation(program, "mvMatrix");
-    UNIFORM_pMatrix = gl.getUniformLocation(program, "pMatrix");
-    UNIFORM_lightPosition = gl.getUniformLocation(program, "lightPosition");
-    UNIFORM_shininess = gl.getUniformLocation(program, "shininess");
-    UNIFORM_sampler = gl.getUniformLocation(program, "uSampler");
 };
 
 Building.prototype.render = function() {
     // TODO: render the building by appending it to the buffer
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-    var mvMatrix = mult(viewMatrix, rotate(0, [0, 1, 0]));
+    var mvMatrix = mult(viewMatrix, translate(vec3(this.x_t, this.y_t, this.z_t)));
 
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, myTexture);
@@ -110,7 +67,6 @@ Building.prototype.render = function() {
     gl.uniform1f(UNIFORM_shininess,  shininess);
     gl.uniform1i(UNIFORM_sampler, 0);
 
-    gl.drawArrays( gl.TRIANGLES, 0, 36);
-
-    console.log("Rendered building.");
+    gl.drawArrays( gl.TRIANGLES, this.vertexBegin, 36);
 };
+

@@ -14,7 +14,6 @@ var lightPosition = vec3(0.0, 0.0, 0.0);
 
 var uv1 = [];
 var uv2 = [];
-var uvBackground = [];
 
 var x_t = 0;
 var y_t = 0;
@@ -44,7 +43,7 @@ window.onload = function init()
     normals = [];
     uv1 = [];
     uv2 = [];
-    Cube(vertices, points, normals, uv1, false);
+    //Cube(vertices, points, normals, uv1, false);
     //Cube(vertices, points, normals, uv2, true);
 
     myTexture1 = gl.createTexture();
@@ -83,6 +82,27 @@ window.onload = function init()
 
     initBackground();
 
+    viewMatrix = lookAt(eye, at, up);
+    projectionMatrix = perspective(90, 1, 0.001, 1000);
+
+    timer.reset();
+    gl.enable(gl.DEPTH_TEST);
+
+    window.addEventListener('keydown', handleKeydown);
+
+    var cool_building = new Building(0.5, 0, 0.2, 0.1, 0, 0);
+    buildingActors.push(cool_building);
+
+    var cool_building2 = new Building(0.8, 0, 0.1, 0.1, 0, 0);
+    buildingActors.push(cool_building2);
+
+    console.log(points);
+    bindBuffers();
+
+    render();
+}
+
+function bindBuffers() {
     var program = initShaders( gl, "vertex-shader", "fragment-shader" );
     gl.useProgram( program );
 
@@ -94,11 +114,9 @@ window.onload = function init()
     gl.bindBuffer( gl.ARRAY_BUFFER, normalBuffer );
     gl.bufferData( gl.ARRAY_BUFFER, flatten(normals), gl.STATIC_DRAW );
 
-    uvBuffer1 = gl.createBuffer();
-
-    uvBuffer2 = gl.createBuffer();
-
-    uvBackgroundBuffer = gl.createBuffer();
+    uvBuffer = gl.createBuffer();
+    gl.bindBuffer( gl.ARRAY_BUFFER, uvBuffer );
+    gl.bufferData( gl.ARRAY_BUFFER, flatten(uv), gl.STATIC_DRAW );
 
     ATTRIBUTE_position = gl.getAttribLocation( program, "vPosition" );
     gl.enableVertexAttribArray( ATTRIBUTE_position );
@@ -115,25 +133,14 @@ window.onload = function init()
     gl.bindBuffer( gl.ARRAY_BUFFER, normalBuffer );
     gl.vertexAttribPointer( ATTRIBUTE_normal, 3, gl.FLOAT, false, 0, 0 );
 
+    gl.bindBuffer( gl.ARRAY_BUFFER, uvBuffer );
+    gl.vertexAttribPointer( ATTRIBUTE_uv, 2, gl.FLOAT, false, 0, 0 );
+
     UNIFORM_mvMatrix = gl.getUniformLocation(program, "mvMatrix");
     UNIFORM_pMatrix = gl.getUniformLocation(program, "pMatrix");
     UNIFORM_lightPosition = gl.getUniformLocation(program, "lightPosition");
     UNIFORM_shininess = gl.getUniformLocation(program, "shininess");
     UNIFORM_sampler = gl.getUniformLocation(program, "uSampler");
-    UNIFORM_rotateTexture = gl.getUniformLocation(program, "rotateTexture");
-
-    viewMatrix = lookAt(eye, at, up);
-    projectionMatrix = perspective(90, 1, 0.001, 1000);
-
-    timer.reset();
-    gl.enable(gl.DEPTH_TEST);
-
-    window.addEventListener('keydown', handleKeydown);
-
-    var cool_building = new Building(0, 0, 0, 2, 0, 0);
-    buildingActors.push(cool_building);
-
-    render();
 }
 
 function initBackground() {
@@ -154,23 +161,7 @@ function initBackground() {
     bgTexture.image.src = "../Images/space.jpg";
 }
 
-function drawBackground() {
-    uvBackground = [
-        vec2(-1, -1),
-        vec2(1, -1),
-        vec2(1, 1),
-        vec2(-1, 1),
-    ];
-
-    gl.bindBuffer( gl.ARRAY_BUFFER, uvBackgroundBuffer );
-    gl.bufferData( gl.ARRAY_BUFFER, flatten(uvBackground), gl.STATIC_DRAW );
-    gl.vertexAttribPointer( ATTRIBUTE_uv, 2, gl.FLOAT, false, 0, 0 );
-    gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, bgTexture);
-
-    //gl.drawArrays( gl.TRIANGLE_STRIP, 0, 4);
-}
-
+/*
 function displayCar() {
     var mvMatrix = mult(viewMatrix, rotate(0, [0, 1, 0]));
     mvMatrix = mult(mvMatrix, translate(vec3(0, 0, 1.2)));
@@ -189,23 +180,9 @@ function displayCar() {
     gl.uniform1f(UNIFORM_shininess,  shininess);
     gl.uniform1i(UNIFORM_sampler, 0)
 
-    gl.drawArrays( gl.TRIANGLES, 0, 36);
+    gl.drawArrays( gl.TRIANGLES, points.length, 36);
 }
-
-function animateRoad() {
-    var mvMatrix = mult(viewMatrix, rotate(0, [0, 1, 0]));
-
-    gl.bindBuffer( gl.ARRAY_BUFFER, uvBuffer1 );
-    gl.bufferData( gl.ARRAY_BUFFER, flatten(uv1), gl.STATIC_DRAW );
-    gl.vertexAttribPointer( ATTRIBUTE_uv, 2, gl.FLOAT, false, 0, 0 );
-    gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, myTexture1);
-
-    gl.uniformMatrix4fv(UNIFORM_mvMatrix, false, flatten(mvMatrix));
-    gl.uniformMatrix4fv(UNIFORM_pMatrix, false, flatten(projectionMatrix));
-
-    gl.drawArrays( gl.TRIANGLES, 0, 36);
-}
+*/
 
 function degreesToRadians(degrees) {
     return degrees * Math.PI / 180;

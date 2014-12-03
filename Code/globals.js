@@ -15,9 +15,9 @@ var projectionMatrix;
 var mvpMatrix;
 var rotateTexture;
 
-var vertices = [];
 var points = [];
 var normals = [];
+var uv = [];
 
 var eye = vec3(0, 0.2, 1.5);
 var at = vec3(0, 0, 0);
