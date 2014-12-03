@@ -130,6 +130,9 @@ window.onload = function init()
 
     window.addEventListener('keydown', handleKeydown);
 
+    var cool_building = new Building(0, 0, 0, 2, 0, 0);
+    buildingActors.push(cool_building);
+
     render();
 }
 
@@ -207,5 +210,3 @@ function animateRoad() {
 function degreesToRadians(degrees) {
     return degrees * Math.PI / 180;
 }
-
-var cool_building = new Building(0, 0, 0, 1.5, 0, 0);
