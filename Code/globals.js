@@ -30,6 +30,7 @@ var up = vec3(0, 1, 0);
 var objectData = [];
 var buildingActors = [];
 var treeActors = [];
+var NSMutableCar;
 
 function Cube(vertices, points, normals, uv, scale){
     Quad(vertices, points, normals, uv, 0, 1, 2, 3, vec3(0, 0, 1), scale);

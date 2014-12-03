@@ -3,6 +3,7 @@ function render() {
 
     time += timer.getElapsedTime() / 1000;
 
+    NSMutableCar.render();
     for (var i = 0; i < buildingActors.length; i++) {
         var currentBuilding = buildingActors[i];
         currentBuilding.render();
