@@ -53,7 +53,6 @@ Building = function(x_t, y_t, z_t, length, width, height) {
 
 Building.prototype.render = function() {
     // TODO: render the building by appending it to the buffer
-    gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
     var mvMatrix = mult(viewMatrix, translate(vec3(this.x_t, this.y_t, this.z_t)));
 
