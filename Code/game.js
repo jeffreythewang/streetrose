@@ -90,6 +90,9 @@ window.onload = function init()
 
     window.addEventListener('keydown', handleKeydown);
 
+	
+	skybox = new Skybox();
+
     NSMutableCar = new Car();
     var cool_building = new Building(0.5, 0, 0.2, 0.1, 1.5);
     buildingActors.push(cool_building);

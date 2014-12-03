@@ -19,7 +19,7 @@ var points = [];
 var normals = [];
 var uv = [];
 
-var eye = vec3(0, 0.2, 1.5);
+var eye = vec3(0, 0.2, 0.5);
 var at = vec3(0, 0, 0);
 var up = vec3(0, 1, 0);
 
@@ -27,10 +27,12 @@ var up = vec3(0, 1, 0);
 // [ [objectA vertexBegin, objectA numVertices],
 //   [objectB vertexBegin, objectB numVertices],
 //   [objectC vertexBegin, objectC numVertices] ];
-var objectData = [];
 var buildingActors = [];
 var treeActors = [];
 var NSMutableCar;
+
+var skybox;
+
 
 function Cube(vertices, points, normals, uv, scale){
     Quad(vertices, points, normals, uv, 0, 1, 2, 3, vec3(0, 0, 1), scale);
