@@ -33,6 +33,10 @@ var NSMutableCar;
 
 var skybox;
 
+var CAR_wheel_turn = 0; // position relative to car
+var CAR_wheel_position = 0; // position relative to physical grid
+var CAR_wheel_turning = false;
+
 var o = 'o';
 var r = 'r';
 

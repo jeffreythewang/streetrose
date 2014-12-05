@@ -55,7 +55,8 @@ Building = function(x_t, y_t, z_t, length, scale_height) {
 Building.prototype.render = function() {
     // TODO: render the building by appending it to the buffer
 
-    var mvMatrix = mult(viewMatrix, rotate(this.theta, [0, 1, 0]));
+    // Multiply this rotation by the current velocity
+    var mvMatrix = mult(viewMatrix, rotate(CAR_wheel_position * 0.001, [0, 1, 0]));
     mvMatrix = mult(mvMatrix, translate(vec3(this.x_t, this.y_t, this.z_t)));
 
 
@@ -74,6 +75,7 @@ Building.prototype.render = function() {
     gl.drawArrays( gl.TRIANGLES, this.vertexBegin, 36);
 };
 
+/*
 Building.prototype.forward = function () {
     this.z_t -= 0.05;
 }
@@ -97,17 +99,21 @@ Building.prototype.maneuverLeft = function () {
 Building.prototype.maneuverRight = function () {
     this.theta += 1;
 }
+*/
 
-/* The real way to do it, but let's be debug friendly for now.
+//The real way to do it, but let's be debug friendly for now.
 Building.prototype.forward = function () {
     //this.z_t -= 0.1;
-    this.x_t -= 0.05 * Math.sin(degreesToRadians(CAR_wheel_degrees));
-    this.z_t -= 0.05 * Math.cos(degreesToRadians(CAR_wheel_degrees));
+    this.x_t -= 0.05 * Math.sin(degreesToRadians(CAR_wheel_turn + CAR_wheel_position));
+    this.z_t -= 0.05 * Math.cos(degreesToRadians(CAR_wheel_turn + CAR_wheel_position));
+
+    CAR_wheel_position -= CAR_wheel_turn;
 }
 
 Building.prototype.backward = function () {
     //this.z_t += 0.1;
-    this.x_t += 0.05 * Math.sin(degreesToRadians(CAR_wheel_degrees));
-    this.z_t += 0.05 * Math.cos(degreesToRadians(CAR_wheel_degrees));
+    this.x_t += 0.05 * Math.sin(degreesToRadians(CAR_wheel_turn + CAR_wheel_position));
+    this.z_t += 0.05 * Math.cos(degreesToRadians(CAR_wheel_turn + CAR_wheel_position));
+
+    CAR_wheel_position += CAR_wheel_turn;
 }
-*/

@@ -1,6 +1,3 @@
-var CAR_wheel_turn = 0;
-var CAR_wheel_turning = false;
-
 function moveForward() {
     for (var i = 0; i < buildingActors.length; i++) {
         var currentBuilding = buildingActors[i];
@@ -25,7 +22,8 @@ function moveBackward() {
     }
 }
 
-/* Left and Right make debugging easier */
+/* Begin debugging code
+// Left and Right make debugging easier
 function moveLeftward() {
     for (var i = 0; i < buildingActors.length; i++) {
         var currentBuilding = buildingActors[i];
@@ -73,7 +71,7 @@ function maneuverRight() {
         currentTree.maneuverRight();
     }
 }
-/* End left right */
+*/
 
 // Put this somewhere useful
 function isPointOnRoad(proposed_x, proposed_z) {
@@ -131,6 +129,7 @@ function handleAllKeys() {
         moveBackward();
     }
 
+    /* Debug code
     if (pressed_keys[65]) {
         moveLeftward();
     }
@@ -148,8 +147,8 @@ function handleAllKeys() {
     if (pressed_keys[69]) {
         maneuverRight();
     }
+    */
 
-    /* These do nothing for now */
     // if 'a' or 'd' keys are not pressed
     // return wheels back to normal position
     if (!pressed_keys[65] && !pressed_keys[68]) {
@@ -165,11 +164,12 @@ function handleAllKeys() {
     // if 'a' or 'd' keys are pressed
     // adjust wheels accordingly
     if (pressed_keys[65] && pressed_keys[87] || pressed_keys[68] && pressed_keys[83]) {
-        CAR_wheel_turn = CAR_wheel_turn >= 60 ? 60 : CAR_wheel_turn + 1;
+        CAR_wheel_turn = CAR_wheel_turn >= 45 ? 45 : CAR_wheel_turn + 1;
     }
 
     if (pressed_keys[68] && pressed_keys[87] || pressed_keys[65] && pressed_keys[83]) {
-        CAR_wheel_turn = CAR_wheel_turn <= -60 ? -60 : CAR_wheel_turn - 1;
+        CAR_wheel_turn = CAR_wheel_turn <= -45 ? -45 : CAR_wheel_turn - 1;
     }
-    /* End doing nothing for now */
+
+    console.log(CAR_wheel_turn);
 }
