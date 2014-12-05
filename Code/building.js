@@ -71,11 +71,9 @@ Building.prototype.render = function() {
 };
 
 Building.prototype.forward = function () {
-    this.x_t += 0.01;
-    this.z_t += 0.01;
+    this.z_t -= 0.1;
 }
 
 Building.prototype.backward = function () {
-    this.x_t -= 0.01;
-    this.z_t -= 0.01;
+    this.z_t += 0.1;
 }
