@@ -58,7 +58,7 @@ Car.prototype.render = function() {
     mvMatrix = mult(mvMatrix, scale(vec3(1, 0.7, 0.5)));
     mvMatrix = mult(mvMatrix, rotate(this.wheel_angle, vec3(0, 1, 0)));
     mvMatrix = mult(mvMatrix, translate(vec3(-(1.3*this.length+2*this.length), 0, 0)));
-    console.log(mvMatrix);
+
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, car_texture);
 
@@ -76,7 +76,7 @@ Car.prototype.render = function() {
     mvMatrix = mult(mvMatrix, scale(vec3(1, 0.7, 0.5)));
     mvMatrix = mult(mvMatrix, rotate(this.wheel_angle, vec3(0, 1, 0)));
     mvMatrix = mult(mvMatrix, translate(vec3(1.3*this.length+2*this.length, 0, 0)));
-    console.log(mvMatrix);
+
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, car_texture);
 

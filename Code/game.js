@@ -59,18 +59,25 @@ window.onload = function init()
     window.addEventListener('keyup', handleKeyup);
 
 
-	skybox = new Skybox();
+  	skybox = new Skybox();
     NSMutableCar = new Car();
-    var cool_building = new Building(0.5, 0, 0.2, 0.1, 1.5);
-    buildingActors.push(cool_building);
+    generateBuildings(master_grid, buildingActors);
 
-    var cool_building2 = new Building(0.8, 0, 0.1, 0.1, 3);
-    buildingActors.push(cool_building2);
-
-    console.log(points);
     bindBuffers();
 
     render();
+}
+
+function generateBuildings(map, actors) {
+  for (var i = 0; i < map.length; i++) {
+    for (var j = 0; j < map[i].length; j++) {
+      if (map[i][j] === o) {
+        var height = Math.floor(Math.random() * 3) + 1;
+        var building = new Building(i, 0, j, 0.3, height);
+        actors.push(building);
+      }
+    }
+  }
 }
 
 function bindBuffers() {
