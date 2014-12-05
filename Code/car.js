@@ -1,8 +1,13 @@
 var CONST_CAR_VERTICES = 36;
+var CONST_ACCEL_VALUE = .5;
+var CONST_STALL_VALUE = .2;
+var CONST_MAX_SPEED  = 20;
+var CONST_BRAKE_MULTIPLIER = 1.5;
 
 Car = function() {
     this.velocity = 0;
     this.acceleration = 0;
+
     this.wheel_angle = 90;
     this.length = 0.1;
     this.vertexBegin = points.length;
@@ -90,6 +95,41 @@ Car.prototype.render = function() {
     gl.drawArrays( gl.TRIANGLES, this.vertexBegin, CONST_CAR_VERTICES);
 
 };
+
+Car.prototype.accelerate = function(){
+    if (this.velocity + CONST_ACCEL_VALUE >= this.maxSpeed)
+    {
+        this.velocity = this.maxSpeed;
+    }
+    else
+    {
+        this.velocity += CONST_ACCEL_VALUE;
+    }
+}
+
+//stall when car is neither accelerating nor decelerating
+Car.prototype.stall = function(){
+    if(this.velocity - CONST_STALL_VALUE <= 0)
+    {
+        this.velocity = 0;
+    }
+    else
+    {
+        this.velocity -= CONST_STALL_VALUE;
+    }
+}
+
+//brake when brake is being pressed
+Car.prototype.brake = function(){
+    if(this.velocity - (CONST_ACCEL_VALUE*CONST_BRAKE_MULTIPLIER) <= 0)
+    {
+        this.velocity = 0;
+    }
+    else
+    {
+        this.velocity -= (CONST_ACCEL_VALUE*CONST_BRAKE_MULTIPLIER);
+    }
+}
 
 Car.prototype.move = function() {
 };

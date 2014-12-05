@@ -159,6 +159,8 @@ function handleAllKeys() {
         if (CAR_wheel_turn < 0) {
             CAR_wheel_turn += 1;
         }
+
+        CAR_wheel_turn = 0;
     }
 
     // if 'a' or 'd' keys are pressed
@@ -171,5 +173,4 @@ function handleAllKeys() {
         CAR_wheel_turn = CAR_wheel_turn <= -45 ? -45 : CAR_wheel_turn - 1;
     }
 
-    console.log(CAR_wheel_turn);
 }
