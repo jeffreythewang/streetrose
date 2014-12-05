@@ -99,6 +99,13 @@ function handleKeydown(e) {
             break;
         case 68: // 'd' key for right
             break;
+        case 82: // 'r' reset camera view
+            eye_x = 0;
+            eye_y = 0.2;
+            eye_z = -1;
+            eye = vec3(eye_x, eye_y, eye_z);
+            viewMatrix = lookAt(eye, at, up);
+            break;
 
         /* Direction Keys */
         case 73: // 'i' key for forward
@@ -172,4 +179,35 @@ function handleAllKeys() {
     }
 
     console.log(CAR_wheel_turn);
+
+
+    /* Begin Internal Tools */
+    // 'i'
+    if (pressed_keys[73]) {
+        eye_y -= 0.1;
+        eye = vec3(eye_x, eye_y, eye_z);
+        viewMatrix = lookAt(eye, at, up);
+    }
+
+    // 'j'
+    if (pressed_keys[74]) {
+        eye_x -= 0.1;
+        eye = vec3(eye_x, eye_y, eye_z);
+        viewMatrix = lookAt(eye, at, up);
+    }
+
+    // 'k'
+    if (pressed_keys[75]) {
+        eye_x += 0.1;
+        eye = vec3(eye_x, eye_y, eye_z);
+        viewMatrix = lookAt(eye, at, up);
+    }
+
+    // 'm'
+    if (pressed_keys[77]) {
+        eye_y += 0.1;
+        eye = vec3(eye_x, eye_y, eye_z);
+        viewMatrix = lookAt(eye, at, up);
+    }
+    /* End Internal Tools */
 }

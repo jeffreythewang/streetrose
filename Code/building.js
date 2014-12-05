@@ -104,16 +104,16 @@ Building.prototype.maneuverRight = function () {
 //The real way to do it, but let's be debug friendly for now.
 Building.prototype.forward = function () {
     //this.z_t -= 0.1;
-    this.x_t -= 0.05 * Math.sin(degreesToRadians(CAR_wheel_turn + CAR_wheel_position));
-    this.z_t -= 0.05 * Math.cos(degreesToRadians(CAR_wheel_turn + CAR_wheel_position));
+    this.x_t -= 0.05 * Math.sin(degreesToRadians(CAR_wheel_position));
+    this.z_t -= 0.05 * Math.cos(degreesToRadians(CAR_wheel_position));
 
     CAR_wheel_position -= CAR_wheel_turn;
 }
 
 Building.prototype.backward = function () {
     //this.z_t += 0.1;
-    this.x_t += 0.05 * Math.sin(degreesToRadians(CAR_wheel_turn + CAR_wheel_position));
-    this.z_t += 0.05 * Math.cos(degreesToRadians(CAR_wheel_turn + CAR_wheel_position));
+    this.x_t += 0.05 * Math.sin(degreesToRadians(CAR_wheel_position));
+    this.z_t += 0.05 * Math.cos(degreesToRadians(CAR_wheel_position));
 
     CAR_wheel_position += CAR_wheel_turn;
 }
