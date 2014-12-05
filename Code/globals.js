@@ -33,6 +33,28 @@ var NSMutableCar;
 
 var skybox;
 
+var o = 'o';
+var r = 'r';
+
+var master_grid = [//0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
+                    [o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o], // 0
+                    [o, r, r, r, o, r, r, r, r, r, r, o, o, o, o, o], // 1
+                    [o, o, o, r, o, r, o, o, o, o, r, o, r, r, r, o], // 2
+                    [o, o, r, r, o, r, o, o, r, r, r, o, r, o, r, o], // 3
+                    [o, o, r, o, o, r, o, o, r, o, o, o, r, o, r, o], // 4
+                    [o, o, r, r, r, r, o, o, r, o, o, o, r, o, r, o], // 5
+                    [o, o, o, o, o, o, o, o, r, r, r, r, r, o, r, o], // 6
+                    [o, o, o, o, o, o, o, o, o, o, o, o, o, o, r, o], // 7
+                    [o, r, r, r, o, o, r, r, r, o, r, r, r, r, r, o], // 8
+                    [o, r, o, r, o, o, r, o, r, o, r, o, o, o, o, o], // 9
+                    [o, r, o, r, o, o, r, o, r, o, r, o, o, o, o, o], // 0
+                    [o, r, o, r, r, r, r, o, r, r, r, o, o, o, o, o], // 1
+                    [o, r, o, o, o, o, o, o, o, o, o, o, o, o, o, o], // 2
+                    [o, r, o, o, o, o, o, o, o, o, o, o, o, o, o, o], // 3
+                    [o, r, r, r, r, r, r, r, r, r, r, r, r, r, o, o], // 4
+                    [o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o], // 5
+                  ];
+
 
 function Cube(vertices, points, normals, uv, scale){
     Quad(vertices, points, normals, uv, 0, 1, 2, 3, vec3(0, 0, 1), scale);
