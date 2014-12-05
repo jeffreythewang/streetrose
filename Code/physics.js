@@ -1,6 +1,9 @@
 var CAR_wheel_degrees = 0;
 var CAR_wheel_turning = false;
 
+var o = 'o';
+var r = 'r';
+
 var master_grid = [//0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
                     [o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o], // 0
                     [o, r, r, r, o, r, r, r, r, r, r, o, o, o, o, o], // 1
@@ -52,12 +55,10 @@ function handleKeydown(e) {
     switch(e.keyCode) {
         /* Car Direction Keys */
         case 87: // 'w' key for forward
-            moveForward();
             break;
         case 65: // 'a' key for left
             break;
         case 83: // 's' key for backwards
-            moveBackward();
             break;
         case 68: // 'd' key for right
             break;
@@ -79,4 +80,39 @@ function handleKeyup(e) {
         case 68: // 'd' key for right
             break;
     }
+}
+
+// Called in render function
+function handleAllKeys() {
+    if (pressed_keys[87]) {
+        moveForward();
+    }
+
+    if (pressed_keys[83]) {
+        moveBackward();
+    }
+
+    // if 'a' or 'd' keys are not pressed
+    // return wheels back to normal position
+    if (!pressed_keys[65] && !pressed_keys[68]) {
+        if (CAR_wheel_degrees > 0) {
+            CAR_wheel_degrees -= 1;
+        }
+
+        if (CAR_wheel_degrees < 0) {
+            CAR_wheel_degrees += 1;
+        }
+    }
+
+    // if 'a' or 'd' keys are pressed
+    // adjust wheels accordingly
+    if (pressed_keys[65] && pressed_keys[87] || pressed_keys[68] && pressed_keys[83]) {
+        CAR_wheel_degrees = CAR_wheel_degrees >= 60 ? 60 : CAR_wheel_degrees + 1;
+    }
+
+    if (pressed_keys[68] && pressed_keys[87] || pressed_keys[65] && pressed_keys[83]) {
+        CAR_wheel_degrees = CAR_wheel_degrees <= -60 ? -60 : CAR_wheel_degrees - 1;
+    }
+
+    console.log(CAR_wheel_degrees);
 }
