@@ -3,7 +3,7 @@ var CONST_CAR_VERTICES = 36;
 Car = function() {
     this.velocity = 0;
     this.acceleration = 0;
-    this.wheel_angle = 0;
+    this.wheel_angle = 90;
     this.length = 0.1;
     this.vertexBegin = points.length;
     this.chassis_vertices = [
@@ -39,7 +39,8 @@ Car = function() {
 
 Car.prototype.render = function() {
     var mvMatrix = viewMatrix;
-    mvMatrix = mult(mvMatrix, scale(vec3(1.5, 1, 1)));
+    mvMatrix = mult(mvMatrix, scale(vec3(1.3, 1, 1)));
+    mvMatrix = mult(mvMatrix, rotate(this.wheel_angle, vec3(0, 1, 0)));
 
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, car_texture);
@@ -52,6 +53,42 @@ Car.prototype.render = function() {
     gl.uniform1i(UNIFORM_sampler, 0);
 
     gl.drawArrays( gl.TRIANGLES, this.vertexBegin, CONST_CAR_VERTICES);
+
+    mvMatrix = viewMatrix;
+    mvMatrix = mult(mvMatrix, scale(vec3(1, 0.7, 0.5)));
+    mvMatrix = mult(mvMatrix, rotate(this.wheel_angle, vec3(0, 1, 0)));
+    mvMatrix = mult(mvMatrix, translate(vec3(-(1.3*this.length+2*this.length), 0, 0)));
+    console.log(mvMatrix);
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, car_texture);
+
+    gl.uniformMatrix4fv(UNIFORM_mvMatrix, false, flatten(mvMatrix));
+    gl.uniformMatrix4fv(UNIFORM_pMatrix, false, flatten(projectionMatrix));
+
+    gl.uniform3fv(UNIFORM_lightPosition,  flatten(lightPosition));
+    gl.uniform1f(UNIFORM_shininess,  shininess);
+    gl.uniform1i(UNIFORM_sampler, 0);
+
+    gl.drawArrays( gl.TRIANGLES, this.vertexBegin, CONST_CAR_VERTICES);
+
+
+    mvMatrix = viewMatrix;
+    mvMatrix = mult(mvMatrix, scale(vec3(1, 0.7, 0.5)));
+    mvMatrix = mult(mvMatrix, rotate(this.wheel_angle, vec3(0, 1, 0)));
+    mvMatrix = mult(mvMatrix, translate(vec3(1.3*this.length+2*this.length, 0, 0)));
+    console.log(mvMatrix);
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, car_texture);
+
+    gl.uniformMatrix4fv(UNIFORM_mvMatrix, false, flatten(mvMatrix));
+    gl.uniformMatrix4fv(UNIFORM_pMatrix, false, flatten(projectionMatrix));
+
+    gl.uniform3fv(UNIFORM_lightPosition,  flatten(lightPosition));
+    gl.uniform1f(UNIFORM_shininess,  shininess);
+    gl.uniform1i(UNIFORM_sampler, 0);
+
+    gl.drawArrays( gl.TRIANGLES, this.vertexBegin, CONST_CAR_VERTICES);
+
 };
 
 Car.prototype.move = function() {
