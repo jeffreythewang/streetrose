@@ -1,4 +1,4 @@
-var CAR_wheel_degrees = 0;
+var CAR_wheel_turn = 0;
 var CAR_wheel_turning = false;
 
 function moveForward() {
@@ -153,23 +153,23 @@ function handleAllKeys() {
     // if 'a' or 'd' keys are not pressed
     // return wheels back to normal position
     if (!pressed_keys[65] && !pressed_keys[68]) {
-        if (CAR_wheel_degrees > 0) {
-            CAR_wheel_degrees -= 1;
+        if (CAR_wheel_turn > 0) {
+            CAR_wheel_turn -= 1;
         }
 
-        if (CAR_wheel_degrees < 0) {
-            CAR_wheel_degrees += 1;
+        if (CAR_wheel_turn < 0) {
+            CAR_wheel_turn += 1;
         }
     }
 
     // if 'a' or 'd' keys are pressed
     // adjust wheels accordingly
     if (pressed_keys[65] && pressed_keys[87] || pressed_keys[68] && pressed_keys[83]) {
-        CAR_wheel_degrees = CAR_wheel_degrees >= 60 ? 60 : CAR_wheel_degrees + 1;
+        CAR_wheel_turn = CAR_wheel_turn >= 60 ? 60 : CAR_wheel_turn + 1;
     }
 
     if (pressed_keys[68] && pressed_keys[87] || pressed_keys[65] && pressed_keys[83]) {
-        CAR_wheel_degrees = CAR_wheel_degrees <= -60 ? -60 : CAR_wheel_degrees - 1;
+        CAR_wheel_turn = CAR_wheel_turn <= -60 ? -60 : CAR_wheel_turn - 1;
     }
     /* End doing nothing for now */
 }
