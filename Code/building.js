@@ -30,24 +30,25 @@ Building = function(x_t, y_t, z_t, length, scale_height) {
         vec3( -this.length,  0, -this.length )  //vertex 7
     ];
 
+    for (var i = 0; i < this.vertices.length; i++) {
+      this.vertices[i][1] = this.vertices[i][1] * this.height;
+    }
     Cube(this.vertices, points, normals, uv, false);
 
-    myTexture = gl.createTexture();
-    myTexture.image = new Image();
-    myTexture.image.onload = function(){
-    gl.bindTexture(gl.TEXTURE_2D, myTexture);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, myTexture.image);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-    //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-    //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    building_texture = gl.createTexture();
+    building_texture.image = new Image();
+    building_texture.image.onload = function(){
+    gl.bindTexture(gl.TEXTURE_2D, building_texture);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, building_texture.image);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
     gl.generateMipmap(gl.TEXTURE_2D);
     gl.bindTexture(gl.TEXTURE_2D, null);
     }
 
-    myTexture.image.src = "../Images/chrome.jpg";
+    building_texture.image.src = "../Images/building.jpg";
 };
 
 Building.prototype.render = function() {
@@ -55,10 +56,11 @@ Building.prototype.render = function() {
 
     var mvMatrix = mult(viewMatrix, translate(vec3(this.x_t, this.y_t, this.z_t)));
 
-    mvMatrix = mult(mvMatrix, scale(vec3(1, this.height, 1)));
+
+//    mvMatrix = mult(mvMatrix, scale(vec3(1, this.height, 1)));
 
     gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, myTexture);
+    gl.bindTexture(gl.TEXTURE_2D, building_texture);
 
     gl.uniformMatrix4fv(UNIFORM_mvMatrix, false, flatten(mvMatrix));
     gl.uniformMatrix4fv(UNIFORM_pMatrix, false, flatten(projectionMatrix));
