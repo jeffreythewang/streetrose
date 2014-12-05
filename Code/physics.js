@@ -25,6 +25,56 @@ function moveBackward() {
     }
 }
 
+/* Left and Right make debugging easier */
+function moveLeftward() {
+    for (var i = 0; i < buildingActors.length; i++) {
+        var currentBuilding = buildingActors[i];
+        currentBuilding.leftward();
+    }
+
+    for (var i = 0; i < treeActors.length; i++) {
+        var currentTree = treeActors[i];
+        currentTree.leftward();
+    }
+}
+
+function moveRightward() {
+    for (var i = 0; i < buildingActors.length; i++) {
+        var currentBuilding = buildingActors[i];
+        currentBuilding.rightward();
+    }
+
+    for (var i = 0; i < treeActors.length; i++) {
+        var currentTree = treeActors[i];
+        currentTree.rightward();
+    }
+}
+
+function maneuverLeft() {
+    for (var i = 0; i < buildingActors.length; i++) {
+        var currentBuilding = buildingActors[i];
+        currentBuilding.maneuverLeft();
+    }
+
+    for (var i = 0; i < treeActors.length; i++) {
+        var currentTree = treeActors[i];
+        currentTree.maneuverLeft();
+    }
+}
+
+function maneuverRight() {
+    for (var i = 0; i < buildingActors.length; i++) {
+        var currentBuilding = buildingActors[i];
+        currentBuilding.maneuverRight();
+    }
+
+    for (var i = 0; i < treeActors.length; i++) {
+        var currentTree = treeActors[i];
+        currentTree.maneuverRight();
+    }
+}
+/* End left right */
+
 // Put this somewhere useful
 function isPointOnRoad(proposed_x, proposed_z) {
     x_floor = Math.floor(proposed_x);
@@ -81,6 +131,25 @@ function handleAllKeys() {
         moveBackward();
     }
 
+    if (pressed_keys[65]) {
+        moveLeftward();
+    }
+
+    if (pressed_keys[68]) {
+        moveRightward();
+    }
+
+    // 'q'
+    if (pressed_keys[81]) {
+        maneuverLeft();
+    }
+
+    // 'e'
+    if (pressed_keys[69]) {
+        maneuverRight();
+    }
+
+    /* These do nothing for now */
     // if 'a' or 'd' keys are not pressed
     // return wheels back to normal position
     if (!pressed_keys[65] && !pressed_keys[68]) {
@@ -102,6 +171,5 @@ function handleAllKeys() {
     if (pressed_keys[68] && pressed_keys[87] || pressed_keys[65] && pressed_keys[83]) {
         CAR_wheel_degrees = CAR_wheel_degrees <= -60 ? -60 : CAR_wheel_degrees - 1;
     }
-
-    console.log(CAR_wheel_degrees);
+    /* End doing nothing for now */
 }

@@ -16,6 +16,7 @@ Building = function(x_t, y_t, z_t, length, scale_height) {
     this.x_t = x_t;
     this.y_t = y_t;
     this.z_t = z_t;
+    this.theta = 0;
     this.length = length;
     this.height = scale_height;
     this.vertexBegin = points.length;
@@ -54,7 +55,8 @@ Building = function(x_t, y_t, z_t, length, scale_height) {
 Building.prototype.render = function() {
     // TODO: render the building by appending it to the buffer
 
-    var mvMatrix = mult(viewMatrix, translate(vec3(this.x_t, this.y_t, this.z_t)));
+    var mvMatrix = mult(viewMatrix, rotate(this.theta, [0, 1, 0]));
+    mvMatrix = mult(mvMatrix, translate(vec3(this.x_t, this.y_t, this.z_t)));
 
 
 //    mvMatrix = mult(mvMatrix, scale(vec3(1, this.height, 1)));
@@ -73,6 +75,31 @@ Building.prototype.render = function() {
 };
 
 Building.prototype.forward = function () {
+    this.z_t -= 0.05;
+}
+
+Building.prototype.backward = function () {
+    this.z_t += 0.05;
+}
+
+Building.prototype.leftward = function () {
+    this.x_t -= 0.05;
+}
+
+Building.prototype.rightward = function () {
+    this.x_t += 0.05;
+}
+
+Building.prototype.maneuverLeft = function () {
+    this.theta -= 1;
+}
+
+Building.prototype.maneuverRight = function () {
+    this.theta += 1;
+}
+
+/* The real way to do it, but let's be debug friendly for now.
+Building.prototype.forward = function () {
     //this.z_t -= 0.1;
     this.x_t -= 0.05 * Math.sin(degreesToRadians(CAR_wheel_degrees));
     this.z_t -= 0.05 * Math.cos(degreesToRadians(CAR_wheel_degrees));
@@ -83,3 +110,4 @@ Building.prototype.backward = function () {
     this.x_t += 0.05 * Math.sin(degreesToRadians(CAR_wheel_degrees));
     this.z_t += 0.05 * Math.cos(degreesToRadians(CAR_wheel_degrees));
 }
+*/
