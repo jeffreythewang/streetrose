@@ -46,40 +46,7 @@ window.onload = function init()
     //Cube(vertices, points, normals, uv1, false);
     //Cube(vertices, points, normals, uv2, true);
 
-    myTexture1 = gl.createTexture();
-    myTexture1.image = new Image();
-    myTexture1.image.onload = function(){
-    	gl.bindTexture(gl.TEXTURE_2D, myTexture1);
-    	gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, myTexture1.image);
-    	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-    	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-    	//gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-    	//gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
-    	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-    	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-    	gl.generateMipmap(gl.TEXTURE_2D);
-    	gl.bindTexture(gl.TEXTURE_2D, null);
-    }
-
-    myTexture1.image.src = "../Images/chrome.jpg";
-
-    myTexture2 = gl.createTexture();
-    myTexture2.image = new Image();
-    myTexture2.image.onload = function(){
-        gl.bindTexture(gl.TEXTURE_2D, myTexture2);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, myTexture2.image);
-        //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-        //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
-        gl.generateMipmap(gl.TEXTURE_2D);
-        gl.bindTexture(gl.TEXTURE_2D, null);
-    }
-
-    myTexture2.image.src = "../Images/chrome.jpg";
-
+ 
     initBackground();
 
     viewMatrix = lookAt(eye, at, up);
@@ -90,6 +57,8 @@ window.onload = function init()
 
     window.addEventListener('keydown', handleKeydown);
 
+	
+	skybox = new Skybox();
     NSMutableCar = new Car();
     var cool_building = new Building(0.5, 0, 0.2, 0.1, 1.5);
     buildingActors.push(cool_building);
