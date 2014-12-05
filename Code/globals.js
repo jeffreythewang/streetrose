@@ -19,7 +19,7 @@ var points = [];
 var normals = [];
 var uv = [];
 
-var eye = vec3(0, 0.2, -5);
+var eye = vec3(0, 0.2, -1);
 var at = vec3(0, 0, 0);
 var up = vec3(0, 1, 0);
 
@@ -74,4 +74,8 @@ function Quad( vertices, points, normals, uv, v1, v2, v3, v4, normal, scale){
     points.push(vertices[v1]);
     points.push(vertices[v4]);
     points.push(vertices[v2]);
+}
+
+function degreesToRadians(degrees) {
+    return degrees * Math.PI / 180;
 }

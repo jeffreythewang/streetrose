@@ -46,7 +46,7 @@ window.onload = function init()
     //Cube(vertices, points, normals, uv1, false);
     //Cube(vertices, points, normals, uv2, true);
 
- 
+
     initBackground();
 
     viewMatrix = lookAt(eye, at, up);
@@ -56,8 +56,9 @@ window.onload = function init()
     gl.enable(gl.DEPTH_TEST);
 
     window.addEventListener('keydown', handleKeydown);
+    window.addEventListener('keyup', handleKeyup);
 
-	
+
 	skybox = new Skybox();
     NSMutableCar = new Car();
     var cool_building = new Building(0.5, 0, 0.2, 0.1, 1.5);
@@ -153,7 +154,3 @@ function displayCar() {
     gl.drawArrays( gl.TRIANGLES, points.length, 36);
 }
 */
-
-function degreesToRadians(degrees) {
-    return degrees * Math.PI / 180;
-}

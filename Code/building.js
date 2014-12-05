@@ -73,9 +73,13 @@ Building.prototype.render = function() {
 };
 
 Building.prototype.forward = function () {
-    this.z_t -= 0.1;
+    //this.z_t -= 0.1;
+    this.x_t -= 0.25 * Math.sin(degreesToRadians(CAR_wheel_degrees));
+    this.z_t -= 0.25 * Math.cos(degreesToRadians(CAR_wheel_degrees));
 }
 
 Building.prototype.backward = function () {
-    this.z_t += 0.1;
+    //this.z_t += 0.1;
+    this.x_t += 0.25 * Math.sin(degreesToRadians(CAR_wheel_degrees));
+    this.z_t += 0.25 * Math.cos(degreesToRadians(CAR_wheel_degrees));
 }
