@@ -75,3 +75,7 @@ function Quad( vertices, points, normals, uv, v1, v2, v3, v4, normal, scale){
     points.push(vertices[v4]);
     points.push(vertices[v2]);
 }
+
+function degreesToRadians(degrees) {
+    return degrees * Math.PI / 180;
+}
