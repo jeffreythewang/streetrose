@@ -109,16 +109,16 @@ Building.prototype.forward = function () {
     //this.z_t -= 0.1;
     //this.x_t -= 0.05 * Math.sin(degreesToRadians(CAR_wheel_position));
     //this.z_t -= 0.05 * Math.cos(degreesToRadians(CAR_wheel_position));
-    CAR_position -= 0.0001;
+    CAR_position -= 0.0001 / (1 + Math.abs(CAR_wheel_turn));
 
-    CAR_wheel_position -= CAR_wheel_turn * 0.0001;
+    CAR_wheel_position -= CAR_wheel_turn * 0.001;
 }
 
 Building.prototype.backward = function () {
     //this.z_t += 0.1;
     //this.x_t += 0.05 * Math.sin(degreesToRadians(CAR_wheel_position));
     //this.z_t += 0.05 * Math.cos(degreesToRadians(CAR_wheel_position));
-    CAR_position += 0.0001;
+    CAR_position += 0.0001 / (1 + Math.abs(CAR_wheel_turn));
 
-    CAR_wheel_position -= CAR_wheel_turn * 0.0001;
+    CAR_wheel_position -= CAR_wheel_turn * 0.001;
 }
