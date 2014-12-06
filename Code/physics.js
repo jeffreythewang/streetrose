@@ -167,12 +167,16 @@ function handleAllKeys() {
     // if 'a' or 'd' keys are not pressed
     // return wheels back to normal position
     if (!pressed_keys[65] && !pressed_keys[68]) {
+        if (Math.abs(CAR_wheel_turn) < 3) {
+            CAR_wheel_turn = 0
+        }
+
         if (CAR_wheel_turn > 0) {
-            CAR_wheel_turn -= 1;
+            CAR_wheel_turn -= 3;
         }
 
         if (CAR_wheel_turn < 0) {
-            CAR_wheel_turn += 1;
+            CAR_wheel_turn += 3;
         }
     }
 
