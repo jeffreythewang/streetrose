@@ -132,16 +132,14 @@ function handleAllKeys() {
         NSMutableCar.physical_x = CAR_position * Math.sin(degreesToRadians(CAR_wheel_position));
         NSMutableCar.physical_z = CAR_position * Math.cos(degreesToRadians(CAR_wheel_position));
         moveForward();
-        console.log('Car x: ' + NSMutableCar.physical_x);
-        console.log('Car z: ' + NSMutableCar.physical_z);
+        //console.log('Car x: ' + NSMutableCar.physical_x);
+        //console.log('Car z: ' + NSMutableCar.physical_z);
     }
 
     if (pressed_keys[83]) {
         NSMutableCar.physical_x = CAR_position * Math.sin(degreesToRadians(CAR_wheel_position));
         NSMutableCar.physical_z = CAR_position * Math.cos(degreesToRadians(CAR_wheel_position));
         moveBackward();
-        console.log('Car x: ' + NSMutableCar.physical_x);
-        console.log('Car z: ' + NSMutableCar.physical_z);
     }
 
     /* Debug code

@@ -57,14 +57,15 @@ Building.prototype.render = function() {
     // TODO: render the building by appending it to the buffer
 
     // Multiply this rotation by the current velocity
-    var mvMatrix = mult(viewMatrix, translate(vec3(0, 0, CAR_position)));
+    var mvMatrix = mult(viewMatrix, translate(vec3(NSMutableCar.physical_x, 0, NSMutableCar.physical_z)));
     mvMatrix = mult(mvMatrix, rotate(CAR_wheel_position, [0, 1, 0]));
     mvMatrix = mult(mvMatrix, translate(vec3(this.x_t, this.y_t, this.z_t)));
+    mvMatrix = mult(mvMatrix, rotate(-CAR_wheel_position, [0, 1, 0]));
+    mvMatrix = mult(mvMatrix, translate(vec3(-NSMutableCar.physical_x, 0, -NSMutableCar.physical_z)));
 
+    mvMatrix = mult(mvMatrix, translate(vec3(0, 0, CAR_position)));
+    mvMatrix = mult(mvMatrix, rotate(CAR_wheel_position, [0, 1, 0]));
     this.initialized = true;
-
-
-//    mvMatrix = mult(mvMatrix, scale(vec3(1, this.height, 1)));
 
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, building_texture);
@@ -87,7 +88,6 @@ Building.prototype.forward = function () {
 Building.prototype.backward = function () {
     this.z_t += 0.05;
 }
-
 Building.prototype.leftward = function () {
     this.x_t -= 0.05;
 }
@@ -112,7 +112,7 @@ Building.prototype.forward = function () {
     //this.z_t -= 0.05 * Math.cos(degreesToRadians(CAR_wheel_position));
     CAR_position -= 0.0001 * Math.cos(degreesToRadians(CAR_wheel_turn));
 
-    CAR_wheel_position -= degreesToRadians(CAR_wheel_turn) * 0.001;
+    CAR_wheel_position -= degreesToRadians(CAR_wheel_turn) * 0.01;
 }
 
 Building.prototype.backward = function () {
@@ -121,5 +121,5 @@ Building.prototype.backward = function () {
     //this.z_t += 0.05 * Math.cos(degreesToRadians(CAR_wheel_position));
     CAR_position += 0.0001 * Math.cos(degreesToRadians(CAR_wheel_turn));
 
-    CAR_wheel_position -= degreesToRadians(CAR_wheel_turn) * 0.001;
+    CAR_wheel_position -= degreesToRadians(CAR_wheel_turn) * 0.01;
 }
