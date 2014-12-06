@@ -56,11 +56,9 @@ Building.prototype.render = function() {
     // TODO: render the building by appending it to the buffer
 
     // Multiply this rotation by the current velocity
-    var mvMatrix = mult(viewMatrix, rotate(CAR_wheel_position, [0, 1, 0]));
-    mvMatrix = mult(mvMatrix, translate(vec3(this.x_t, this.y_t, this.z_t)));
-    mvMatrix = mult(mvMatrix, rotate(360 - CAR_wheel_position, [0, 1, 0]));
-    mvMatrix = mult(mvMatrix, translate(vec3(0, 0, CAR_position)));
+    var mvMatrix = mult(viewMatrix, translate(vec3(0, 0, CAR_position)));
     mvMatrix = mult(mvMatrix, rotate(CAR_wheel_position, [0, 1, 0]));
+    mvMatrix = mult(mvMatrix, translate(vec3(this.x_t, this.y_t, this.z_t)));
 
 
 //    mvMatrix = mult(mvMatrix, scale(vec3(1, this.height, 1)));

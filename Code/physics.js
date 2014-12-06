@@ -101,8 +101,8 @@ function handleKeydown(e) {
             break;
         case 82: // 'r' reset camera view
             eye_x = 0;
-            eye_y = 0.2;
-            eye_z = -1;
+            eye_y = 0.4;
+            eye_z = -0.6;
             eye = vec3(eye_x, eye_y, eye_z);
             viewMatrix = lookAt(eye, at, up);
             break;

@@ -20,10 +20,10 @@ var normals = [];
 var uv = [];
 
 var eye_x = 0;
-var eye_y = 0.2;
-var eye_z = -1;
+var eye_y = 0.4;
+var eye_z = -0.6;
 
-var eye = vec3(0, 0.2, -1);
+var eye = vec3(0, 0.4, -0.6);
 var at = vec3(0, 0, 0);
 var up = vec3(0, 1, 0);
 
