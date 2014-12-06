@@ -129,11 +129,19 @@ function handleKeyup(e) {
 // Called in render function
 function handleAllKeys() {
     if (pressed_keys[87]) {
+        NSMutableCar.physical_x = CAR_position * Math.sin(degreesToRadians(CAR_wheel_position));
+        NSMutableCar.physical_z = CAR_position * Math.cos(degreesToRadians(CAR_wheel_position));
         moveForward();
+        console.log('Car x: ' + NSMutableCar.physical_x);
+        console.log('Car z: ' + NSMutableCar.physical_z);
     }
 
     if (pressed_keys[83]) {
+        NSMutableCar.physical_x = CAR_position * Math.sin(degreesToRadians(CAR_wheel_position));
+        NSMutableCar.physical_z = CAR_position * Math.cos(degreesToRadians(CAR_wheel_position));
         moveBackward();
+        console.log('Car x: ' + NSMutableCar.physical_x);
+        console.log('Car z: ' + NSMutableCar.physical_z);
     }
 
     /* Debug code
@@ -180,7 +188,7 @@ function handleAllKeys() {
         CAR_wheel_turn = CAR_wheel_turn <= -45 ? -45 : CAR_wheel_turn - 1;
     }
 
-    console.log(CAR_wheel_turn);
+    //console.log(CAR_wheel_turn);
 
 
     /* Begin Internal Tools */
