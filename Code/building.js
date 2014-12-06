@@ -50,17 +50,18 @@ Building = function(x_t, y_t, z_t, length, scale_height) {
     }
 
     building_texture.image.src = "../Images/building.jpg";
+    this.initialized = false;
 };
 
 Building.prototype.render = function() {
     // TODO: render the building by appending it to the buffer
 
     // Multiply this rotation by the current velocity
-    var mvMatrix = mult(viewMatrix, rotate(CAR_wheel_position, [0, 1, 0]));
+    var mvMatrix = mult(viewMatrix, translate(vec3(0, 0, CAR_position)));
+    var mvMatrix = mult(mvMatrix, rotate(CAR_wheel_position, [0, 1, 0]));
     mvMatrix = mult(mvMatrix, translate(vec3(this.x_t, this.y_t, this.z_t)));
-    mvMatrix = mult(mvMatrix, rotate(360 - CAR_wheel_position, [0, 1, 0]));
-    mvMatrix = mult(mvMatrix, translate(vec3(0, 0, CAR_position)));
-    mvMatrix = mult(mvMatrix, rotate(CAR_wheel_position, [0, 1, 0]));
+
+    this.initialized = true;
 
 
 //    mvMatrix = mult(mvMatrix, scale(vec3(1, this.height, 1)));
@@ -109,16 +110,16 @@ Building.prototype.forward = function () {
     //this.z_t -= 0.1;
     //this.x_t -= 0.05 * Math.sin(degreesToRadians(CAR_wheel_position));
     //this.z_t -= 0.05 * Math.cos(degreesToRadians(CAR_wheel_position));
-    CAR_position -= 0.0001 / (1 + Math.abs(CAR_wheel_turn));
+    CAR_position -= 0.0001 * Math.cos(degreesToRadians(CAR_wheel_turn));
 
-    CAR_wheel_position -= CAR_wheel_turn * 0.001;
+    CAR_wheel_position -= degreesToRadians(CAR_wheel_turn) * 0.001;
 }
 
 Building.prototype.backward = function () {
     //this.z_t += 0.1;
     //this.x_t += 0.05 * Math.sin(degreesToRadians(CAR_wheel_position));
     //this.z_t += 0.05 * Math.cos(degreesToRadians(CAR_wheel_position));
-    CAR_position += 0.0001 / (1 + Math.abs(CAR_wheel_turn));
+    CAR_position += 0.0001 * Math.cos(degreesToRadians(CAR_wheel_turn));
 
-    CAR_wheel_position -= CAR_wheel_turn * 0.001;
+    CAR_wheel_position -= degreesToRadians(CAR_wheel_turn) * 0.001;
 }
