@@ -19,6 +19,10 @@ var points = [];
 var normals = [];
 var uv = [];
 
+var eye_x = 0;
+var eye_y = 0.2;
+var eye_z = -1;
+
 var eye = vec3(0, 0.2, -1);
 var at = vec3(0, 0, 0);
 var up = vec3(0, 1, 0);
@@ -36,6 +40,7 @@ var skybox;
 var CAR_wheel_turn = 0; // position relative to car
 var CAR_wheel_position = 0; // position relative to physical grid
 var CAR_wheel_turning = false;
+var CAR_position = 0;
 
 var o = 'o';
 var r = 'r';
