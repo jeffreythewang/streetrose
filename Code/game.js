@@ -9,7 +9,7 @@ var myTexture2;
 var bgTexture;
 
 var shininess = 50;
-var lightPosition = vec3(0.0, 0.0, 0.0);
+var lightPosition = vec3(0.0, 0.0, 5.0);
 
 var uv1 = [];
 var uv2 = [];
@@ -43,8 +43,6 @@ window.onload = function init()
     uv1 = [];
     uv2 = [];
 
-    //initBackground();
-
     viewMatrix = lookAt(eye, at, up);
     projectionMatrix = perspective(90, 1, 0.001, 1000);
 
@@ -59,6 +57,7 @@ window.onload = function init()
   	skybox = new Skybox();
     NSMutableCar = new Car();
     single_intro = new Intro();
+    single_sweetrose = new SweetRose();
     generateBuildings(master_grid, buildingActors);
 
     bindBuffers();

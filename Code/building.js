@@ -62,7 +62,7 @@ Building.prototype.render = function() {
     this.z_t = this.initial_z - NSMutableCar.physical_z;
 
     if (Math.abs(this.x_t) < 0.55 && Math.abs(this.z_t) < 0.55) {
-//        NSMutableCar.collide();
+        NSMutableCar.collide();
     }
 
     // Multiply this rotation by the current velocity

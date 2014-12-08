@@ -38,6 +38,7 @@ var buildingActors = [];
 var treeActors = [];
 var NSMutableCar;
 var single_intro;
+var single_sweetrose;
 
 var skybox;
 
