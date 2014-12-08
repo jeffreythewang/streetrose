@@ -55,19 +55,16 @@ function handleKeyup(e) {
 function handleAllKeys() {
     NSMutableCar.physical_x += NSMutableCar.velocity * Math.sin(degreesToRadians(CAR_angle));
     NSMutableCar.physical_z += NSMutableCar.velocity * Math.cos(degreesToRadians(CAR_angle));
-    console.log('velocity: ' + NSMutableCar.velocity);
 
     if (!pressed_keys[87] && !pressed_keys[83]) {
         NSMutableCar.stall();
     }
     if (pressed_keys[87]) {
         NSMutableCar.accelerate();
-        console.log('(' + NSMutableCar.physical_x + ', ' + NSMutableCar.physical_z + ')');
     }
 
     if (pressed_keys[83]) {
         NSMutableCar.decelerate();
-        console.log('(' + NSMutableCar.physical_x + ', ' + NSMutableCar.physical_z + ')');
     }
 
     if (pressed_keys[65] || pressed_keys[68]) {
