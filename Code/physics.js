@@ -33,6 +33,8 @@ function handleKeydown(e) {
             eye_z = -0.4;
             eye = vec3(eye_x, eye_y, eye_z);
             viewMatrix = lookAt(eye, at, up);
+            timer.reset();
+            time = 0.0;
             break;
 
         /* Direction Keys */
