@@ -1,6 +1,5 @@
 var length = 0.5;
 var time = 0.0;
-var timer = new Timer();
 var omega = 60;
 
 var time_stopped = false;
@@ -49,6 +48,7 @@ window.onload = function init()
     viewMatrix = lookAt(eye, at, up);
     projectionMatrix = perspective(90, 1, 0.001, 1000);
 
+    timer = new Timer();
     timer.reset();
     gl.enable(gl.DEPTH_TEST);
 

@@ -15,6 +15,9 @@ var projectionMatrix;
 var mvpMatrix;
 var rotateTexture;
 
+var time = 0.0;
+var timer;
+
 var points = [];
 var normals = [];
 var uv = [];
@@ -115,4 +118,16 @@ function Quad( vertices, points, normals, uv, v1, v2, v3, v4, normal, scale){
 
 function degreesToRadians(degrees) {
     return degrees * Math.PI / 180;
+}
+
+function formatTime(time) {
+  var sec_num = parseInt(time, 10);
+  var hours = Math.floor(sec_num / 3600);
+  var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+  var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+  if (hours < 10) hours = "0" + hours;
+  if (minutes < 10) minutes = "0" + minutes;
+  if (seconds < 10) seconds = "0" + seconds;
+  return minutes + ":" + seconds;
 }

@@ -9,11 +9,14 @@ function render() {
       single_intro.render();
       intro_offset += 0.01;
     } else {
-      time += timer.getElapsedTime() / 1000;
+      time += timer.getElapsedTime() / 200;
 
       skybox.render();
 
+      document.getElementById('time').innerHTML = formatTime(900 - time);
       NSMutableCar.render();
+      var normal_velocity = Math.floor(NSMutableCar.velocity * 2000);
+      document.getElementById('speed').innerHTML = normal_velocity + ' mph';
       for (var i = 0; i < buildingActors.length; i++) {
           var currentBuilding = buildingActors[i];
           currentBuilding.render();
