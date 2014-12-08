@@ -43,11 +43,8 @@ window.onload = function init()
     normals = [];
     uv1 = [];
     uv2 = [];
-    //Cube(vertices, points, normals, uv1, false);
-    //Cube(vertices, points, normals, uv2, true);
 
-
-    initBackground();
+    //initBackground();
 
     viewMatrix = lookAt(eye, at, up);
     projectionMatrix = perspective(90, 1, 0.001, 1000);
@@ -61,6 +58,7 @@ window.onload = function init()
 
   	skybox = new Skybox();
     NSMutableCar = new Car();
+    single_intro = new Intro();
     generateBuildings(master_grid, buildingActors);
 
     bindBuffers();
