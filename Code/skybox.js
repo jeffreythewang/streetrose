@@ -13,6 +13,10 @@ var uvBuffer;
 //var texture;
 
 Skybox = function() {
+    this.x_t = 7.5;
+    this.z_t = 7.5;
+    this.initial_x = this.x_t;
+    this.initial_z = this.x_t;
     this.vertexBegin = points.length;
     this.vertices = [
         vec3(  length,   2*length, length ), //vertex 0
@@ -106,12 +110,15 @@ function Quad( vertices, points, normals, uv, v1, v2, v3, v4, normal, scale){
 
 Skybox.prototype.render = function() {
     /* Apply the same code that renders other objects (buildings) here */
+    this.x_t = this.initial_x - NSMutableCar.physical_x;
+    this.z_t = this.initial_z - NSMutableCar.physical_z;
+
     // Don't include building position translation
-    var mvMatrix = mult(viewMatrix, translate(vec3(0, 0, CAR_position)));
-    mvMatrix = mult(mvMatrix, rotate(CAR_wheel_position, [0, 1, 0]));
+    var mvMatrix = viewMatrix;
+    mvMatrix = mult(mvMatrix, rotate(CAR_angle, [0, 1, 0]));
+    mvMatrix = mult(mvMatrix, translate(vec3(-this.x_t, 0, this.z_t)));
     /* end car movement */
 
-	mvMatrix = mult(mvMatrix, translate(vec3(7.5, 0, 7.5)));
 	mvMatrix = mult(mvMatrix, scale(16, 16, 16));
 
     gl.activeTexture(gl.TEXTURE0);
