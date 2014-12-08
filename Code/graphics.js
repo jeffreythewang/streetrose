@@ -5,9 +5,17 @@ function render() {
       in_intro = false;
     }
 
+    if (NSMutableCar.physical_x >= 14 && NSMutableCar.physical_z >= 14) {
+      in_sweetrose = true;
+    }
+
     if (in_intro) {
       single_intro.render();
       intro_offset += 0.01;
+    } else if (in_sweetrose) {
+      NSMutableCar.velocity = 0;
+      document.getElementById('speed').innerHTML = normal_velocity + ' mph';
+      console.log('arrived at sweet rose');
     } else {
       time += timer.getElapsedTime() / 200;
 

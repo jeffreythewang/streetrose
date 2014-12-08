@@ -51,6 +51,8 @@ var CAR_isRotating = false;
 var in_intro = true;
 var intro_offset = 0;
 
+var in_sweetrose = false;
+
 var o = 'o';
 var r = 'r';
 
