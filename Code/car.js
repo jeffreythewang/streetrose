@@ -5,8 +5,8 @@ var CONST_MAX_SPEED = 1;
 var CONST_BRAKE_MULTIPLIER = 1.5;
 
 Car = function() {
-    this.physical_x = 0;
-    this.physical_z = 0;
+    this.physical_x = 1;
+    this.physical_z = 1;
     this.velocity = 0;
     this.acceleration = 0;
 
