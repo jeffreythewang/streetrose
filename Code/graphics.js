@@ -7,7 +7,7 @@ function render() {
 
     if (in_intro) {
       single_intro.render();
-      intro_offset += 0.0025;
+      intro_offset += 0.01;
     } else {
       time += timer.getElapsedTime() / 1000;
 
@@ -24,8 +24,8 @@ function render() {
           currentTree.render();
       }
 
-      handleAllKeys();
     }
 
+    handleAllKeys();
     window.requestAnimFrame( render );
 }

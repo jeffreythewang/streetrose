@@ -194,6 +194,11 @@ function handleAllKeys() {
 
 
     /* Begin Internal Tools */
+    // 'g'
+    if (pressed_keys[71]) {
+      in_intro = false;
+    }
+
     // 'i'
     if (pressed_keys[73]) {
         eye_y -= 0.1;
