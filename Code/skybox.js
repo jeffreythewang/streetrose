@@ -13,6 +13,10 @@ var uvBuffer;
 //var texture;
 
 Skybox = function() {
+    this.x_t = 7.5;
+    this.z_t = 7.5;
+    this.initial_x = this.x_t;
+    this.initial_z = this.x_t;
     this.vertexBegin = points.length;
     this.vertices = [
         vec3(  length,   2*length, length ), //vertex 0
@@ -24,7 +28,7 @@ Skybox = function() {
         vec3( -length,   2*length, -length ), //vertex 6
         vec3( -length,  0, -length )  //vertex 7
     ];
-	
+
     Cube(this.vertices, points, normals, uv, false);
 
     skyboxTexture = gl.createTexture();
@@ -41,9 +45,9 @@ Skybox = function() {
 		gl.generateMipmap(gl.TEXTURE_2D);
 		gl.bindTexture(gl.TEXTURE_2D, null);
     }
-	
+
 	skyboxTexture.image.src = "../Images/sky.jpg";
-	
+
 	skyboxTexture1 = gl.createTexture();
     skyboxTexture1.image = new Image();
     skyboxTexture1.image.onload = function(){
@@ -58,8 +62,8 @@ Skybox = function() {
 		gl.generateMipmap(gl.TEXTURE_2D);
 		gl.bindTexture(gl.TEXTURE_2D, null);
     }
-	
-	skyboxTexture1.image.src = "../Images/chrome.jpg";
+
+	skyboxTexture1.image.src = "../Tiles/map.jpg";
 };
 
 function Cube(vertices, points, normals, uv, scale){
@@ -105,11 +109,20 @@ function Quad( vertices, points, normals, uv, v1, v2, v3, v4, normal, scale){
 }
 
 Skybox.prototype.render = function() {
-	var mvMatrix = mult(viewMatrix, translate(vec3(0, 0, 0.0)));
-	mvMatrix = mult(viewMatrix, scale(500, 100, 100));
-	
+    /* Apply the same code that renders other objects (buildings) here */
+    this.x_t = this.initial_x - NSMutableCar.physical_x;
+    this.z_t = this.initial_z - NSMutableCar.physical_z;
+
+    // Don't include building position translation
+    var mvMatrix = viewMatrix;
+    mvMatrix = mult(mvMatrix, rotate(CAR_angle, [0, 1, 0]));
+    mvMatrix = mult(mvMatrix, translate(vec3(-this.x_t, 0, this.z_t)));
+    /* end car movement */
+
+	mvMatrix = mult(mvMatrix, scale(16, 16, 16));
+
     gl.activeTexture(gl.TEXTURE0);
-	
+
 
     gl.uniformMatrix4fv(UNIFORM_mvMatrix, false, flatten(mvMatrix));
     gl.uniformMatrix4fv(UNIFORM_pMatrix, false, flatten(projectionMatrix));
@@ -117,11 +130,11 @@ Skybox.prototype.render = function() {
     gl.uniform3fv(UNIFORM_lightPosition,  flatten(lightPosition));
     gl.uniform1f(UNIFORM_shininess,  shininess);
     gl.uniform1i(UNIFORM_sampler, 0);
-	
+
 	gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, skyboxTexture);
     gl.drawArrays( gl.TRIANGLES, this.vertexBegin, 30);
-	
+
 	gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, skyboxTexture1);
     gl.drawArrays( gl.TRIANGLES, this.vertexBegin + 30, 6);
