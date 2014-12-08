@@ -1,78 +1,3 @@
-function moveForward() {
-    for (var i = 0; i < buildingActors.length; i++) {
-        var currentBuilding = buildingActors[i];
-        currentBuilding.forward();
-    }
-
-    for (var i = 0; i < treeActors.length; i++) {
-        var currentTree = treeActors[i];
-        currentTree.forward();
-    }
-}
-
-function moveBackward() {
-    for (var i = 0; i < buildingActors.length; i++) {
-        var currentBuilding = buildingActors[i];
-        currentBuilding.backward();
-    }
-
-    for (var i = 0; i < treeActors.length; i++) {
-        var currentTree = treeActors[i];
-        currentTree.backward();
-    }
-}
-
-/* Begin debugging code
-// Left and Right make debugging easier
-function moveLeftward() {
-    for (var i = 0; i < buildingActors.length; i++) {
-        var currentBuilding = buildingActors[i];
-        currentBuilding.leftward();
-    }
-
-    for (var i = 0; i < treeActors.length; i++) {
-        var currentTree = treeActors[i];
-        currentTree.leftward();
-    }
-}
-
-function moveRightward() {
-    for (var i = 0; i < buildingActors.length; i++) {
-        var currentBuilding = buildingActors[i];
-        currentBuilding.rightward();
-    }
-
-    for (var i = 0; i < treeActors.length; i++) {
-        var currentTree = treeActors[i];
-        currentTree.rightward();
-    }
-}
-
-function maneuverLeft() {
-    for (var i = 0; i < buildingActors.length; i++) {
-        var currentBuilding = buildingActors[i];
-        currentBuilding.maneuverLeft();
-    }
-
-    for (var i = 0; i < treeActors.length; i++) {
-        var currentTree = treeActors[i];
-        currentTree.maneuverLeft();
-    }
-}
-
-function maneuverRight() {
-    for (var i = 0; i < buildingActors.length; i++) {
-        var currentBuilding = buildingActors[i];
-        currentBuilding.maneuverRight();
-    }
-
-    for (var i = 0; i < treeActors.length; i++) {
-        var currentTree = treeActors[i];
-        currentTree.maneuverRight();
-    }
-}
-*/
-
 // Put this somewhere useful
 function isPointOnRoad(proposed_x, proposed_z) {
     x_floor = Math.floor(proposed_x);
@@ -128,70 +53,35 @@ function handleKeyup(e) {
 
 // Called in render function
 function handleAllKeys() {
+    NSMutableCar.physical_x += NSMutableCar.velocity * Math.sin(degreesToRadians(CAR_angle));
+    NSMutableCar.physical_z += NSMutableCar.velocity * Math.cos(degreesToRadians(CAR_angle));
+    console.log('velocity: ' + NSMutableCar.velocity);
+
+    if (!pressed_keys[87] && !pressed_keys[83]) {
+        NSMutableCar.stall();
+    }
     if (pressed_keys[87]) {
-        NSMutableCar.physical_x = CAR_position * Math.sin(degreesToRadians(CAR_wheel_position));
-        NSMutableCar.physical_z = CAR_position * Math.cos(degreesToRadians(CAR_wheel_position));
-        moveForward();
-        //console.log('Car x: ' + NSMutableCar.physical_x);
-        //console.log('Car z: ' + NSMutableCar.physical_z);
+        NSMutableCar.accelerate();
+        console.log('(' + NSMutableCar.physical_x + ', ' + NSMutableCar.physical_z + ')');
     }
 
     if (pressed_keys[83]) {
-        NSMutableCar.physical_x = CAR_position * Math.sin(degreesToRadians(CAR_wheel_position));
-        NSMutableCar.physical_z = CAR_position * Math.cos(degreesToRadians(CAR_wheel_position));
-        moveBackward();
+        NSMutableCar.decelerate();
+        console.log('(' + NSMutableCar.physical_x + ', ' + NSMutableCar.physical_z + ')');
     }
 
-    /* Debug code
-    if (pressed_keys[65]) {
-        moveLeftward();
-    }
-
-    if (pressed_keys[68]) {
-        moveRightward();
-    }
-
-    // 'q'
-    if (pressed_keys[81]) {
-        maneuverLeft();
-    }
-
-    // 'e'
-    if (pressed_keys[69]) {
-        maneuverRight();
-    }
-    */
-
-    // if 'a' or 'd' keys are not pressed
-    // return wheels back to normal position
-    if (!pressed_keys[65] && !pressed_keys[68]) {
-        if (Math.abs(CAR_wheel_turn) < 3) {
-            CAR_wheel_turn = 0
+    if (pressed_keys[65] || pressed_keys[68]) {
+        CAR_isRotating = true;
+        if (pressed_keys[65] && NSMutableCar.velocity > 0 || pressed_keys[68] && NSMutableCar.velocity < 0) {
+            CAR_angle -= 0.5;
         }
 
-        if (CAR_wheel_turn > 0) {
-            CAR_wheel_turn -= 3;
+        if (pressed_keys[68] && NSMutableCar.velocity > 0 || pressed_keys[65] && NSMutableCar.velocity < 0) {
+            CAR_angle += 0.5;
         }
-
-        if (CAR_wheel_turn < 0) {
-            CAR_wheel_turn += 3;
-        }
-
-        CAR_wheel_turn = 0;
+    } else {
+        CAR_isRotating = false;
     }
-
-    // if 'a' or 'd' keys are pressed
-    // adjust wheels accordingly
-    if (pressed_keys[65] && pressed_keys[87] || pressed_keys[68] && pressed_keys[83]) {
-        CAR_wheel_turn = CAR_wheel_turn >= 45 ? 45 : CAR_wheel_turn + 1;
-    }
-
-    if (pressed_keys[68] && pressed_keys[87] || pressed_keys[65] && pressed_keys[83]) {
-        CAR_wheel_turn = CAR_wheel_turn <= -45 ? -45 : CAR_wheel_turn - 1;
-    }
-
-    //console.log(CAR_wheel_turn);
-
 
     /* Begin Internal Tools */
     // 'g'

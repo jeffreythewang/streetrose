@@ -1,7 +1,7 @@
 var CONST_CAR_VERTICES = 36;
-var CONST_ACCEL_VALUE = .5;
-var CONST_STALL_VALUE = .2;
-var CONST_MAX_SPEED  = 20;
+var CONST_ACCEL_VALUE = 0.0001;
+var CONST_STALL_VALUE = 0.0005;
+var CONST_MAX_SPEED = 1;
 var CONST_BRAKE_MULTIPLIER = 1.5;
 
 Car = function() {
@@ -99,45 +99,42 @@ Car.prototype.render = function() {
 };
 
 Car.prototype.accelerate = function(){
-    if (this.velocity + CONST_ACCEL_VALUE >= this.maxSpeed)
-    {
+    if (this.velocity + CONST_ACCEL_VALUE >= this.maxSpeed) {
         this.velocity = this.maxSpeed;
     }
-    else
-    {
+    else if (this.velocity < 0) {
+        this.velocity += (CONST_ACCEL_VALUE*CONST_BRAKE_MULTIPLIER);
+    } else {
         this.velocity += CONST_ACCEL_VALUE;
     }
 }
 
 //stall when car is neither accelerating nor decelerating
 Car.prototype.stall = function(){
-    if(this.velocity - CONST_STALL_VALUE <= 0)
-    {
-        this.velocity = 0;
-    }
-    else
-    {
-        this.velocity -= CONST_STALL_VALUE;
+    if (this.velocity >= 0) {
+        if(this.velocity - CONST_STALL_VALUE <= 0) {
+            this.velocity = 0;
+        } else {
+            this.velocity -= CONST_STALL_VALUE;
+        }
+    } else {
+        if(this.velocity + CONST_STALL_VALUE >= 0) {
+            this.velocity = 0;
+        } else {
+            this.velocity += CONST_STALL_VALUE;
+        }
     }
 }
 
-//brake when brake is being pressed
-Car.prototype.brake = function(){
-    if(this.velocity - (CONST_ACCEL_VALUE*CONST_BRAKE_MULTIPLIER) <= 0)
-    {
-        this.velocity = 0;
+//brake when decelerate is being pressed
+//go backwards if velocity is negative
+Car.prototype.decelerate = function(){
+    if(this.velocity - CONST_ACCEL_VALUE <= -this.maxSpeed) {
+        this.velocity = -this.maxSpeed;
     }
-    else
-    {
+    else if (this.velocity > 0) {
         this.velocity -= (CONST_ACCEL_VALUE*CONST_BRAKE_MULTIPLIER);
+    } else {
+        this.velocity -= CONST_ACCEL_VALUE;
     }
 }
-
-Car.prototype.move = function() {
-};
-
-Car.prototype.left = function() {
-};
-
-Car.prototype.right = function() {
-};

@@ -42,6 +42,8 @@ var CAR_wheel_turn = 0; // position relative to car
 var CAR_wheel_position = 0; // position relative to physical grid
 var CAR_wheel_turning = false;
 var CAR_position = 0;
+var CAR_angle = 0;
+var CAR_isRotating = false;
 
 var in_intro = true;
 var intro_offset = 0;
