@@ -1,7 +1,7 @@
 var CONST_CAR_VERTICES = 36;
 var CONST_ACCEL_VALUE = 0.0001;
 var CONST_STALL_VALUE = 0.0005;
-var CONST_MAX_SPEED = 1;
+var CONST_MAX_SPEED = 0.5;
 var CONST_BRAKE_MULTIPLIER = 1.5;
 
 Car = function() {
@@ -136,5 +136,15 @@ Car.prototype.decelerate = function(){
         this.velocity -= (CONST_ACCEL_VALUE*CONST_BRAKE_MULTIPLIER);
     } else {
         this.velocity -= CONST_ACCEL_VALUE;
+    }
+}
+
+Car.prototype.collide = function() {
+    this.velocity = -this.velocity;
+
+    if (this.velocity >= 0) {
+        this.velocity += 0.00001;
+    } else {
+        this.velocity -= 0.00001;
     }
 }

@@ -25,9 +25,12 @@ function handleKeydown(e) {
         case 68: // 'd' key for right
             break;
         case 82: // 'r' reset camera view
+            NSMutableCar.physical_x = 1;
+            NSMutableCar.physical_z = 1;
+            CAR_angle = 0;
             eye_x = 0;
-            eye_y = 0.4;
-            eye_z = -0.6;
+            eye_y = 0.2;
+            eye_z = -0.4;
             eye = vec3(eye_x, eye_y, eye_z);
             viewMatrix = lookAt(eye, at, up);
             break;
@@ -59,6 +62,7 @@ function handleAllKeys() {
     if (!pressed_keys[87] && !pressed_keys[83]) {
         NSMutableCar.stall();
     }
+
     if (pressed_keys[87]) {
         NSMutableCar.accelerate();
     }

@@ -23,10 +23,10 @@ var normals = [];
 var uv = [];
 
 var eye_x = 0;
-var eye_y = 0.4;
-var eye_z = -0.6;
+var eye_y = 0.2;
+var eye_z = -0.4;
 
-var eye = vec3(0, 0.4, -0.6);
+var eye = vec3(eye_x, eye_y, eye_z);
 var at = vec3(0, 0, 0);
 var up = vec3(0, 1, 0);
 
@@ -69,7 +69,7 @@ var master_grid = [//0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
                     [o, r, o, r, r, r, r, o, r, r, r, o, o, o, o, o], // 1
                     [o, r, o, o, o, o, o, o, o, o, o, o, o, o, o, o], // 2
                     [o, r, o, o, o, o, o, o, o, o, o, o, o, o, o, o], // 3
-                    [o, r, r, r, r, r, r, r, r, r, r, r, r, r, o, o], // 4
+                    [o, r, r, r, r, r, r, r, r, r, r, r, r, r, r, o], // 4
                     [o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o], // 5
                   ];
 

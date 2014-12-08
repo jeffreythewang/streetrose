@@ -71,7 +71,7 @@ function generateBuildings(map, actors) {
     for (var j = 0; j < map[i].length; j++) {
       if (map[i][j] === o) {
         var height = Math.floor(Math.random() * 3) + 1;
-        var building = new Building(i, 0, j, 0.3, height);
+        var building = new Building(i, 0, j, 0.45, height);
         actors.push(building);
       }
     }
