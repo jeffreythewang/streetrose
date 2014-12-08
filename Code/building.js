@@ -16,6 +16,9 @@ Building = function(x_t, y_t, z_t, length, scale_height) {
     this.x_t = x_t;
     this.y_t = y_t;
     this.z_t = z_t;
+    this.initial_x = x_t;
+    this.initial_y = y_t;
+    this.initial_z = z_t;
     this.theta = 0;
     this.length = length;
     this.height = scale_height;
@@ -55,16 +58,14 @@ Building = function(x_t, y_t, z_t, length, scale_height) {
 
 Building.prototype.render = function() {
     // TODO: render the building by appending it to the buffer
+    this.x_t = this.initial_x - NSMutableCar.physical_x;
+    this.z_t = this.initial_z - NSMutableCar.physical_z;
 
     // Multiply this rotation by the current velocity
-    var mvMatrix = mult(viewMatrix, translate(vec3(0, 0, CAR_position)));
-    mvMatrix = mult(mvMatrix, rotate(CAR_wheel_position, [0, 1, 0]));
-    mvMatrix = mult(mvMatrix, translate(vec3(this.x_t, this.y_t, this.z_t)));
-
+    var mvMatrix = viewMatrix;
+    mvMatrix = mult(mvMatrix, rotate(CAR_angle, [0, 1, 0]));
+    mvMatrix = mult(mvMatrix, translate(vec3(-this.x_t, 0, this.z_t)));
     this.initialized = true;
-
-
-//    mvMatrix = mult(mvMatrix, scale(vec3(1, this.height, 1)));
 
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, building_texture);
@@ -80,46 +81,12 @@ Building.prototype.render = function() {
 };
 
 /*
-Building.prototype.forward = function () {
-    this.z_t -= 0.05;
-}
-
-Building.prototype.backward = function () {
-    this.z_t += 0.05;
-}
-
-Building.prototype.leftward = function () {
-    this.x_t -= 0.05;
-}
-
-Building.prototype.rightward = function () {
-    this.x_t += 0.05;
-}
-
-Building.prototype.maneuverLeft = function () {
-    this.theta -= 1;
-}
-
-Building.prototype.maneuverRight = function () {
-    this.theta += 1;
-}
-*/
-
 //The real way to do it, but let's be debug friendly for now.
 Building.prototype.forward = function () {
-    //this.z_t -= 0.1;
-    //this.x_t -= 0.05 * Math.sin(degreesToRadians(CAR_wheel_position));
-    //this.z_t -= 0.05 * Math.cos(degreesToRadians(CAR_wheel_position));
-    CAR_position -= 0.0001 * Math.cos(degreesToRadians(CAR_wheel_turn));
-
     CAR_wheel_position -= degreesToRadians(CAR_wheel_turn) * 0.001;
 }
 
 Building.prototype.backward = function () {
-    //this.z_t += 0.1;
-    //this.x_t += 0.05 * Math.sin(degreesToRadians(CAR_wheel_position));
-    //this.z_t += 0.05 * Math.cos(degreesToRadians(CAR_wheel_position));
-    CAR_position += 0.0001 * Math.cos(degreesToRadians(CAR_wheel_turn));
-
     CAR_wheel_position -= degreesToRadians(CAR_wheel_turn) * 0.001;
 }
+*/
