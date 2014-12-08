@@ -36,11 +36,9 @@ function handleKeydown(e) {
             timer.reset();
             time = 0.0;
             break;
-
-        /* Direction Keys */
-        case 73: // 'i' key for forward
-            break;
-        case 79: // 'o' key for backwards
+        case 84: // 't' key to win
+            NSMutableCar.physical_x = 14;
+            NSMutableCar.physical_z = 13.9;
             break;
     }
 }
