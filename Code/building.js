@@ -59,12 +59,19 @@ Building.prototype.render = function() {
     // Multiply this rotation by the current velocity
     var mvMatrix = mult(viewMatrix, translate(vec3(NSMutableCar.physical_x, 0, NSMutableCar.physical_z)));
     mvMatrix = mult(mvMatrix, rotate(CAR_wheel_position, [0, 1, 0]));
-    mvMatrix = mult(mvMatrix, translate(vec3(this.x_t, this.y_t, this.z_t)));
-    mvMatrix = mult(mvMatrix, rotate(-CAR_wheel_position, [0, 1, 0]));
-    mvMatrix = mult(mvMatrix, translate(vec3(-NSMutableCar.physical_x, 0, -NSMutableCar.physical_z)));
 
-    mvMatrix = mult(mvMatrix, translate(vec3(0, 0, CAR_position)));
-    mvMatrix = mult(mvMatrix, rotate(CAR_wheel_position, [0, 1, 0]));
+    mvMatrix = mult(mvMatrix, translate(vec3(-NSMutableCar.physical_x, 0, -NSMutableCar.physical_z)));
+    mvMatrix = mult(mvMatrix, translate(vec3(
+      this.x_t - NSMutableCar.physical_x,
+      this.y_t,
+      this.z_t + NSMutableCar.physical_z
+    )));
+
+
+    //mvMatrix = mult(mvMatrix, rotate(-CAR_wheel_position, [0, 1, 0]));
+
+    //mvMatrix = mult(mvMatrix, translate(vec3(0, 0, CAR_position)));
+    //mvMatrix = mult(mvMatrix, rotate(CAR_wheel_position, [0, 1, 0]));
     this.initialized = true;
 
     gl.activeTexture(gl.TEXTURE0);
