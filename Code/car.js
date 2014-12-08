@@ -11,7 +11,7 @@ Car = function() {
     this.acceleration = 0;
 
     this.wheel_angle = 90;
-    this.length = 0.1;
+    this.length = 0.05;
     this.vertexBegin = points.length;
     this.chassis_vertices = [
         vec3(  this.length,   2*this.length, this.length ), //vertex 0
