@@ -135,26 +135,3 @@ function initBackground() {
 
     bgTexture.image.src = "../Images/space.jpg";
 }
-
-/*
-function displayCar() {
-    var mvMatrix = mult(viewMatrix, rotate(0, [0, 1, 0]));
-    mvMatrix = mult(mvMatrix, translate(vec3(0, 0, 1.2)));
-    mvMatrix = mult(mvMatrix, scale(vec3(.1, .1, .1)));
-
-    gl.bindBuffer( gl.ARRAY_BUFFER, uvBuffer1 );
-    gl.bufferData( gl.ARRAY_BUFFER, flatten(uv1), gl.STATIC_DRAW );
-    gl.vertexAttribPointer( ATTRIBUTE_uv, 2, gl.FLOAT, false, 0, 0 );
-    gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, myTexture1);
-
-    gl.uniformMatrix4fv(UNIFORM_mvMatrix, false, flatten(mvMatrix));
-    gl.uniformMatrix4fv(UNIFORM_pMatrix, false, flatten(projectionMatrix));
-
-    gl.uniform3fv(UNIFORM_lightPosition,  flatten(lightPosition));
-    gl.uniform1f(UNIFORM_shininess,  shininess);
-    gl.uniform1i(UNIFORM_sampler, 0)
-
-    gl.drawArrays( gl.TRIANGLES, points.length, 36);
-}
-*/

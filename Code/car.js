@@ -143,9 +143,6 @@ Car.prototype.render = function() {
     gl.bindTexture(gl.TEXTURE_2D, car_back_texture);
 
     gl.drawArrays(gl.TRIANGLES, this.vertexBegin+12, 24);
-
-
-
 };
 
 Car.prototype.accelerate = function(){
