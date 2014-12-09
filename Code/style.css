@@ -41,3 +41,21 @@ h4 {
 #speed {
   float: right;
 }
+
+button {
+  padding: 20px;
+  font-size: 15pt;
+  color: #151515;
+  margin: 20px;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  background: #c1c1c1;
+  cursor: pointer;
+  box-shadow: 0px 5px 0px 0px #222, 0px 5px 10px 2px #151515;
+  border-radius: 20px;
+  border: 1px solid black;
+}
+
+button:active {
+  margin-top: 2px;
+}
