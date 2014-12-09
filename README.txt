@@ -8,6 +8,19 @@ Jonathan Chu    UID: 804141479
 
 This is a final term project for CS174A for Fall Quarter, 2014 with Professor Friedman.
 
+HOW TO RUN THE GAME:
+1. Run a local server in the root directory (the one that contains this file, the README):
+`python -m SimpleHTTPServer 1337`
+
+2. Point the browser to `localhost:1337`.
+
+3. Navigate through the files to open `Code/game.html`
+
+4. Enjoy the game :^)
+
+TO PLAY:
+Accelerate or decelerate with W and S. Turn left or right with A or D. Click an ice cream flavor to win!
+
 Overview
 
 Our game is a racing simulation game based on real life events with one main objective: get to Sweet Rose Creamery, the premier ice cream shop of the WebGL world, before it closes. Our product features fifteen minutes of fast-paced racing action. The only enemy is time itself, that is, the player is racing against the clock.
@@ -27,7 +40,6 @@ However, we chose not to do shadows or parallel rendering.  After talking with t
 In addition, without ray tracing, shadows would not have made sense. To offset this, we decided to implement another advanced topics: physics (friction/acceleration/deceleration).
 
 Thus, the three advanced topics that we implemented are as follows:
-Collision Detection
-Picking
+Collision Detection (car collisions with buildings)
+Picking (choosing ice cream flavors)
 Physics (friction/acceleration/deceleration)
-
