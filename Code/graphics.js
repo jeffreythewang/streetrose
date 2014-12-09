@@ -5,7 +5,7 @@ function render() {
       in_intro = false;
     }
 
-    if (NSMutableCar.physical_x >= 14 && NSMutableCar.physical_z >= 14) {
+    if (NSMutableCar.physical_x >= 13 && NSMutableCar.physical_z >= 14) {
       in_sweetrose = true;
       document.getElementById('speed').innerHTML = '0 mph';
     }
@@ -14,7 +14,10 @@ function render() {
       single_intro.render();
       intro_offset += 0.01;
     } else if (in_sweetrose) {
-      single_sweetrose.render();
+//      single_sweetrose.render();
+      for (var i = 0; i < buckets.length; i++) {
+        buckets[i].render();
+      }
     } else {
       time += timer.getElapsedTime() / 200;
 

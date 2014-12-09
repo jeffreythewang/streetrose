@@ -36,6 +36,7 @@ var up = vec3(0, 1, 0);
 //   [objectC vertexBegin, objectC numVertices] ];
 var buildingActors = [];
 var treeActors = [];
+var buckets = [];
 var NSMutableCar;
 var single_intro;
 var single_sweetrose;

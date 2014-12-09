@@ -60,6 +60,7 @@ window.onload = function init()
     single_sweetrose = new SweetRose();
     generateBuildings(master_grid, buildingActors);
 
+    buckets.push(new Bucket());
     bindBuffers();
 
     render();

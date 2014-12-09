@@ -10,8 +10,6 @@ var positionBuffer;
 var normalBuffer;
 var uvBuffer;
 
-//var texture;
-
 SweetRose = function() {
     this.vertexBegin = points.length;
 
@@ -76,6 +74,7 @@ SweetRose = function() {
     }
 
 	sr_texture2.image.src = "../Images/metal.jpg";
+
 };
 
 SweetRose.prototype.render = function() {
@@ -83,7 +82,7 @@ SweetRose.prototype.render = function() {
   mvMatrix = mult(mvMatrix, translate(0, 0, 1.2));
   mvMatrix = mult(mvMatrix, scale(vec3(3, 3, 1.5)));
 
-	gl.activeTexture(gl.TEXTURE0);
+/*	gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, sr_texture2);
 
   gl.uniformMatrix4fv(UNIFORM_mvMatrix, false, flatten(mvMatrix));
@@ -93,6 +92,7 @@ SweetRose.prototype.render = function() {
   gl.uniform1f(UNIFORM_shininess,  100);
   gl.uniform1i(UNIFORM_sampler, 0);
   gl.drawArrays(gl.TRIANGLES, this.vertexBegin, 36);
+*/
 
   mvMatrix = lookAt(this.eye, this.at, this.up);
 	mvMatrix = mult(mvMatrix, scale(15, 15, 15));
@@ -110,6 +110,6 @@ SweetRose.prototype.render = function() {
 
 	gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, sr_texture1);
-    gl.drawArrays( gl.TRIANGLES, this.vertexBegin + 30, 6);
+    gl.drawArrays( gl.TRIANGLE_STRIP, this.vertexBegin + 30, 6);
 };
 
