@@ -4,6 +4,8 @@ var CONST_STALL_VALUE = 0.0005;
 var CONST_MAX_SPEED = 0.5;
 var CONST_BRAKE_MULTIPLIER = 1.5;
 
+// we only ever see four surfaces of the car
+
 Car = function() {
     this.physical_x = 1;
     this.physical_z = 1;
@@ -26,22 +28,60 @@ Car = function() {
 
     Cube(this.chassis_vertices, points, normals, uv, false);
 
-    car_texture = gl.createTexture();
-    car_texture.image = new Image();
-    car_texture.image.onload = function(){
-      gl.bindTexture(gl.TEXTURE_2D, car_texture);
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, car_texture.image);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-      //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-      //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
-      gl.generateMipmap(gl.TEXTURE_2D);
+    car_top_texture = gl.createTexture();
+    car_top_texture.image = new Image();
+    car_top_texture.image.onload = function(){
+      gl.bindTexture(gl.TEXTURE_2D, car_top_texture);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, car_top_texture.image);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
       gl.bindTexture(gl.TEXTURE_2D, null);
     }
+    car_top_texture.image.src = "../Images/car_top_texture.jpg";
 
-    car_texture.image.src = "../Images/chrome.jpg";
+    car_window_texture = gl.createTexture();
+    car_window_texture.image = new Image();
+    car_window_texture.image.onload = function(){
+      gl.bindTexture(gl.TEXTURE_2D, car_window_texture);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, car_window_texture.image);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.bindTexture(gl.TEXTURE_2D, null);
+    }
+    car_window_texture.image.src = "../Images/car_window_texture.jpg";
+
+    car_trunk_texture = gl.createTexture();
+    car_trunk_texture.image = new Image();
+    car_trunk_texture.image.onload = function(){
+      gl.bindTexture(gl.TEXTURE_2D, car_trunk_texture);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, car_trunk_texture.image);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.bindTexture(gl.TEXTURE_2D, null);
+    }
+    car_trunk_texture.image.src = "../Images/car_trunk_texture.jpg";
+
+    car_back_texture = gl.createTexture();
+    car_back_texture.image = new Image();
+    car_back_texture.image.onload = function(){
+      gl.bindTexture(gl.TEXTURE_2D, car_back_texture);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, car_back_texture.image);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.bindTexture(gl.TEXTURE_2D, null);
+    }
+    car_back_texture.image.src = "../Images/car_back_texture.jpg";
+
+
+
 };
 
 Car.prototype.render = function() {
@@ -50,7 +90,7 @@ Car.prototype.render = function() {
     mvMatrix = mult(mvMatrix, rotate(this.wheel_angle, vec3(0, 1, 0)));
 
     gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, car_texture);
+    gl.bindTexture(gl.TEXTURE_2D, car_top_texture);
 
     gl.uniformMatrix4fv(UNIFORM_mvMatrix, false, flatten(mvMatrix));
     gl.uniformMatrix4fv(UNIFORM_pMatrix, false, flatten(projectionMatrix));
@@ -59,16 +99,19 @@ Car.prototype.render = function() {
     gl.uniform1f(UNIFORM_shininess,  shininess);
     gl.uniform1i(UNIFORM_sampler, 0);
 
-    gl.drawArrays( gl.TRIANGLES, this.vertexBegin, CONST_CAR_VERTICES);
+    gl.drawArrays( gl.TRIANGLES, this.vertexBegin, 12);
+
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, car_window_texture);
+
+    gl.drawArrays(gl.TRIANGLES, this.vertexBegin+12, 24);
+
 
     mvMatrix = viewMatrix;
-    mvMatrix = mult(mvMatrix, scale(vec3(1, 0.7, 0.5)));
+    mvMatrix = mult(mvMatrix, scale(vec3(1.3, 0.7, 0.5)));
     mvMatrix = mult(mvMatrix, rotate(this.wheel_angle, vec3(0, 1, 0)));
     mvMatrix = mult(mvMatrix, translate(vec3(-(1.3*this.length+2*this.length), 0, 0)));
 
-    gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, car_texture);
-
     gl.uniformMatrix4fv(UNIFORM_mvMatrix, false, flatten(mvMatrix));
     gl.uniformMatrix4fv(UNIFORM_pMatrix, false, flatten(projectionMatrix));
 
@@ -80,12 +123,12 @@ Car.prototype.render = function() {
 
 
     mvMatrix = viewMatrix;
-    mvMatrix = mult(mvMatrix, scale(vec3(1, 0.7, 0.5)));
+    mvMatrix = mult(mvMatrix, scale(vec3(1.3, 0.7, 0.5)));
     mvMatrix = mult(mvMatrix, rotate(this.wheel_angle, vec3(0, 1, 0)));
     mvMatrix = mult(mvMatrix, translate(vec3(1.3*this.length+2*this.length, 0, 0)));
 
     gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, car_texture);
+    gl.bindTexture(gl.TEXTURE_2D, car_trunk_texture);
 
     gl.uniformMatrix4fv(UNIFORM_mvMatrix, false, flatten(mvMatrix));
     gl.uniformMatrix4fv(UNIFORM_pMatrix, false, flatten(projectionMatrix));
@@ -94,7 +137,14 @@ Car.prototype.render = function() {
     gl.uniform1f(UNIFORM_shininess,  shininess);
     gl.uniform1i(UNIFORM_sampler, 0);
 
-    gl.drawArrays( gl.TRIANGLES, this.vertexBegin, CONST_CAR_VERTICES);
+    gl.drawArrays( gl.TRIANGLES, this.vertexBegin, 12);
+
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, car_back_texture);
+
+    gl.drawArrays(gl.TRIANGLES, this.vertexBegin+12, 24);
+
+
 
 };
 

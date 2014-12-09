@@ -9,7 +9,7 @@ var myTexture2;
 var bgTexture;
 
 var shininess = 50;
-var lightPosition = vec3(0.0, 0.0, 5.0);
+var lightPosition = vec3(0.0, 0.0, -1.0);
 
 var uv1 = [];
 var uv2 = [];
