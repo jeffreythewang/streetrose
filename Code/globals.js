@@ -53,6 +53,7 @@ var in_intro = true;
 var intro_offset = 0;
 
 var in_sweetrose = false;
+var in_game = true;
 
 var o = 'o';
 var r = 'r';

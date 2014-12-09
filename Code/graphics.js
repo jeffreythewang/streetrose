@@ -10,7 +10,17 @@ function render() {
       document.getElementById('speed').innerHTML = '0 mph';
     }
 
-    if (in_intro) {
+    if (time >= 900) {
+      var r = confirm('Sweet Rose has closed! Game over. Want to try again?');
+      in_game = false;
+      if (r) {
+        location.reload();
+      }
+    }
+
+    if (!in_game) {
+      document.getElementById('time').innerHTML = '00:00';
+    } else if (in_intro) {
       single_intro.render();
       intro_offset += 0.01;
     } else if (in_sweetrose) {
