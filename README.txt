@@ -1,6 +1,6 @@
 Jeffrey Wang    UID: 104148158
 James Wu        UID: 204135990
-Emily Huang     UID: 504158819
+Emily Hwang     UID: 504158819
 Soomin Jeong    UID: 304116854
 Jonathan Chu    UID: 804141479
 
