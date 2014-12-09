@@ -88,12 +88,26 @@ Building.prototype.render = function() {
 };
 
 Building.prototype.checkCollision = function() {
+    var top_left = this.vertices[0] + this.length * Math.cos(NSMutableCar.physical_x);
+    var top_right = this.vertices[0] - this.length * Math.cos(NSMutableCar.physical_x);
     for (var i = 0; i < this.vertices.length; i++) {
-        if (Math.abs(this.vertices[0][0]) < 0.1) {
+       if (Math.abs(this.vertices[0]) < 0.1) {
+          var x_range = Math.cos(this.x_t - this.length) + Math.sin(this.z_t - this.length);;
+          if (this.vertices[0] < x_range || this.vertices[0] > 0) {
+            return true;
+          } else if (NSMutableCar.physical_x > this.x_t && NSMutableCar.physical_x < this.x_t + this.length) {
+            return true;
+          }
         }
-
-        if (Math.abs(this.vertices[0][2]) < 0.1 ) {
+       if (Math.abs(this.vertices[0]) < 0.1) {
+          var z_range = Math.cos(this.z_t - this.length) + Math.sin(this.x_t - this.length);;
+          if (this.vertices[0] < z_range || this.vertices[0] > 0) {
+            return true;
+          } else if (NSMutableCar.physical_z > this.z_t && NSMutableCar.physical_z < this.z_t + this.length) {
+            return true;
+          }
         }
+        // no need to check y coordinates
     }
     return true;
 }
