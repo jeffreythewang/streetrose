@@ -6,6 +6,7 @@ function render() {
     }
 
     if (NSMutableCar.physical_x >= 14 && NSMutableCar.physical_z >= 14) {
+      window.location.replace("pickCube.html");
       in_sweetrose = true;
       document.getElementById('speed').innerHTML = '0 mph';
     }
