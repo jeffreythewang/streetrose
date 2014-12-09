@@ -1,10 +1,10 @@
 Jeffrey Wang    UID: 104148158
 James Wu        UID: 204135990
-Emily Huang     UID:
-Soomin Jeong    UID:
+Emily Huang     UID: 504158819
+Soomin Jeong    UID: 304116854
 Jonathan Chu    UID: 804141479
 
-#STREET ROSE: THE GAME
+## STREET ROSE: THE GAME ##
 
 This is a final term project for CS174A for Fall Quarter, 2014 with Professor Friedman.
 
