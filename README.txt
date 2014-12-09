@@ -43,3 +43,18 @@ Thus, the three advanced topics that we implemented are as follows:
 Collision Detection (car collisions with buildings)
 Picking (choosing ice cream flavors)
 Physics (friction/acceleration/deceleration)
+
+
+Distribution of workload:
+
+Jeffrey Wang - implemented car physics and collision detection for the car
+             - implemented picking at the end of the racing simulating
+
+James Wu - implemented several textures, including car, buildings, final ice cream shop
+         - styled the html page with css
+
+Emily Hwang - created skybox including textures for the faces
+
+Soomin Jeong - created map of the world for the car to drive including textures
+
+Jonathan Chu - developed intelligent coordinate systems to take into account physical and graphical positions
