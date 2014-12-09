@@ -30,10 +30,6 @@ var eye = vec3(eye_x, eye_y, eye_z);
 var at = vec3(0, 0, 0);
 var up = vec3(0, 1, 0);
 
-// stores objects of all the data
-// [ [objectA vertexBegin, objectA numVertices],
-//   [objectB vertexBegin, objectB numVertices],
-//   [objectC vertexBegin, objectC numVertices] ];
 var buildingActors = [];
 var treeActors = [];
 var NSMutableCar;

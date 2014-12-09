@@ -57,7 +57,6 @@ Building = function(x_t, y_t, z_t, length, scale_height) {
 };
 
 Building.prototype.render = function() {
-    // TODO: render the building by appending it to the buffer
     this.x_t = this.initial_x - NSMutableCar.physical_x;
     this.z_t = this.initial_z - NSMutableCar.physical_z;
 
@@ -97,14 +96,3 @@ Building.prototype.checkCollision = function() {
     }
     return true;
 }
-
-/*
-//The real way to do it, but let's be debug friendly for now.
-Building.prototype.forward = function () {
-    CAR_wheel_position -= degreesToRadians(CAR_wheel_turn) * 0.001;
-}
-
-Building.prototype.backward = function () {
-    CAR_wheel_position -= degreesToRadians(CAR_wheel_turn) * 0.001;
-}
-*/

@@ -1,4 +1,3 @@
-// Put this somewhere useful
 function isPointOnRoad(proposed_x, proposed_z) {
     x_floor = Math.floor(proposed_x);
     z_floor = Math.floor(proposed_z);

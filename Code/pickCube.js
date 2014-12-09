@@ -144,11 +144,6 @@ window.onload = function init() {
 
    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
 
-// check for completeness
-
-   //var status = gl.checkFramebufferStatus(gl.FRAMEBUFFER);
-   //if(status != gl.FRAMEBUFFER_COMPLETE) alert('Frame Buffer Not Complete');
-
 gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 
     //
