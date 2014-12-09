@@ -125,6 +125,7 @@ window.onload = function init() {
     gl.clearColor( 0.5, 0.5, 0.5, 1.0 );
 
     gl.enable(gl.CULL_FACE);
+    single_sweetrose = new SweetRose();
 
     var texture = gl.createTexture();
     gl.bindTexture( gl.TEXTURE_2D, texture );
@@ -215,31 +216,34 @@ gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     canvas.addEventListener("mousedown", function(event){
 
         gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer);
-        gl.clear( gl.COLOR_BUFFER_BIT);
+        //gl.clear( gl.COLOR_BUFFER_BIT);
+        gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         gl.uniform3fv(thetaLoc, theta);
         for(var i=0; i<6; i++) {
             gl.uniform1i(gl.getUniformLocation(program, "i"), i+1);
             gl.drawArrays( gl.TRIANGLES, 6*i, 6 );
         }
-        var x = event.clientX;
+        var x = event.clientX - 720 / 4;
         var y = canvas.height -event.clientY;
+        console.log(x + ', ' + y);
 
         gl.readPixels(x, y, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, color);
 
         if(color[0]==255)
-        if(color[1]==255) alert('You have chosen the mint!');
-        else if(color[2]==255) alert('You have chosen rasberry!');
-        else alert('You have chosen cherry!');
+        if(color[1]==255) alert('You have chosen the mint! Good choice.');
+        else if(color[2]==255) alert('You have chosen rasberry! Choose a better flavor.');
+        else alert('You have chosen cherry! Choose a better flavor.');
         else if(color[1]==255)
-        if(color[2]==255) alert('You have chosen blueberry!');
-        else alert('You have chosen lemon!');
-        else if(color[2]==255) alert('You have chosen green tea!');
+        if(color[2]==255) alert('You have chosen blueberry! Choose a better flavor.');
+        else alert('You have chosen lemon! Choose a better flavor.');
+        else if(color[2]==255) alert('You have chosen green tea! Choose a better flavor.');
         else alert('Pick a real flavor.');
 
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 
         gl.uniform1i(gl.getUniformLocation(program, "i"), 0);
-        gl.clear( gl.COLOR_BUFFER_BIT );
+        //gl.clear( gl.COLOR_BUFFER_BIT );
+        gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         gl.uniform3fv(thetaLoc, theta);
         gl.drawArrays(gl.TRIANGLES, 0, 36);
 
@@ -251,12 +255,13 @@ gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 var theta_face = 0;
 
 var render = function(){
-    gl.clear( gl.COLOR_BUFFER_BIT );
+    //gl.clear( gl.COLOR_BUFFER_BIT );
+    gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    single_sweetrose.render();
     modelView = mat4();
     modelView = mult(modelView, rotate(theta_face, [1, 0, 0] ));
 
-    gl.uniformMatrix4fv( gl.getUniformLocation(program,
-            "modelViewMatrix"), false, flatten(modelView) );
+    gl.uniformMatrix4fv( gl.getUniformLocation(program, "modelViewMatrix"), false, flatten(modelView) );
 
     gl.uniform1i(gl.getUniformLocation(program, "i"),0);
     gl.drawArrays( gl.TRIANGLES, 0, 36 );

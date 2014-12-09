@@ -6,9 +6,9 @@ function render() {
     }
 
     if (NSMutableCar.physical_x >= 14 && NSMutableCar.physical_z >= 14) {
-      window.location.replace("pickCube.html");
       in_sweetrose = true;
       document.getElementById('speed').innerHTML = '0 mph';
+      setTimeout(function() { window.location.replace("pickCube.html"); }, 5000);
     }
 
     if (time >= 900) {
@@ -23,7 +23,7 @@ function render() {
       document.getElementById('time').innerHTML = '00:00';
     } else if (in_intro) {
       single_intro.render();
-      intro_offset += 0.01;
+      intro_offset += 0.003;
     } else if (in_sweetrose) {
       single_sweetrose.render();
     } else {
