@@ -61,8 +61,11 @@ Building.prototype.render = function() {
     this.x_t = this.initial_x - NSMutableCar.physical_x;
     this.z_t = this.initial_z - NSMutableCar.physical_z;
 
+    // check for collisions
     if (Math.abs(this.x_t) < 0.55 && Math.abs(this.z_t) < 0.55) {
-        NSMutableCar.collide();
+        if (this.checkCollision) {
+            NSMutableCar.collide();
+        }
     }
 
     // Multiply this rotation by the current velocity
@@ -83,6 +86,17 @@ Building.prototype.render = function() {
 
     gl.drawArrays( gl.TRIANGLES, this.vertexBegin, 36);
 };
+
+Building.prototype.checkCollision = function() {
+    for (var i = 0; i < this.vertices.length; i++) {
+        if (Math.abs(this.vertices[0][0]) < 0.1) {
+        }
+
+        if (Math.abs(this.vertices[0][2]) < 0.1 ) {
+        }
+    }
+    return true;
+}
 
 /*
 //The real way to do it, but let's be debug friendly for now.
